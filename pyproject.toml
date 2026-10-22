@@ -1,0 +1,23 @@
+[project]
+name = "ChunkFlow"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Hugo Bacard",email = "hbacard@pm.me"},
+]
+dependencies = ["markdown-it-py>=4.2.0", "pymupdf>=2.0", "tiktoken>=0.14.0", "qdrant-client>=1.20.0", "httpx>=0.28.1", "pytest>=9.1.1"]
+requires-python = ">=3.12,<3.14"
+readme = "README.md"
+license = {text = "CC BY 4.0"}
+
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
