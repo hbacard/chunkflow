@@ -12,7 +12,7 @@ class Section:
 
 def parent_record(section: Section, source_url: str | None, token_count: int) -> dict:
     return {
-        "id": uuid4().hex,
+        "id": str(uuid4()),
         "text": section.text,
         "chunk_type": "parent",
         "source_file": section.source_file,
@@ -26,7 +26,7 @@ def parent_record(section: Section, source_url: str | None, token_count: int) ->
 
 def child_record(parent: dict, text: str, child_index: int, token_count: int) -> dict:
     return {
-        "id": uuid4().hex,
+        "id": str(uuid4()),
         "text": text,
         "chunk_type": "child",
         "source_file": parent["source_file"],

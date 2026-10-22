@@ -39,9 +39,11 @@ def _run_embed(args) -> None:
 
 
 def _run_ingest(args) -> None:
+    import asyncio
+
     from chunkflow.ingester.ingest import run
 
-    run(input_path=args.input, collection=args.collection, url=args.url)
+    asyncio.run(run(input_path=args.input, collection=args.collection, url=args.url))
 
 
 if __name__ == "__main__":
