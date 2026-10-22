@@ -43,6 +43,6 @@ Ingester tests skip when Qdrant is not running.
 
 ## Docs
 
-- [`_docs/plan.md`](_docs/plan.md) — architecture, JSON contract, retrieval flow
-- [`_docs/implementation_milestones.md`](_docs/implementation_milestones.md) — build milestones
+- [`docs/plan.md`](docs/plan.md) — architecture, JSON contract, retrieval flow
+- [`docs/implementation_milestones.md`](docs/implementation_milestones.md) — build milestones
 - [`samples/installation-guide.md`](samples/installation-guide.md) — sample input
