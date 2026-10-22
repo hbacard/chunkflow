@@ -13,7 +13,7 @@ then parents are fetched by ID — see `chunkflow/ingester/retrieve.py`.
 ## Setup
 
 ```bash
-pdm install          # Python >=3.12
+pdm install          # Python >=3.12,<3.14
 docker compose up -d # Qdrant on localhost:6333
 ```
 
