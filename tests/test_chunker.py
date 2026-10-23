@@ -1,4 +1,4 @@
-from chunkflow.chunker.chunk import CHUNK_TOKENS, chunk_sections
+from chunkflow.chunker.chunk import CHILD_TOKENS, chunk_sections
 from chunkflow.chunker.parse import parse_file
 
 
@@ -17,21 +17,19 @@ def test_pdf_section_detection(sample_pdf):
     assert "Body paragraph number 3" in sections[0].text
 
 
-def test_chunk_sizes_and_overlap(sample_md):
-    from chunkflow.chunker.chunk import OVERLAP_RATIO, _split
-
+def test_children_preserve_sentences(sample_md):
     records = chunk_sections(parse_file(sample_md))
+    parents = {r["id"]: r for r in records if r["chunk_type"] == "parent"}
     children = [r for r in records if r["chunk_type"] == "child"]
     assert children, "expected children chunks"
-    assert all(r["token_count"] <= CHUNK_TOKENS for r in children)
-    step = CHUNK_TOKENS - int(CHUNK_TOKENS * OVERLAP_RATIO)
-    shared = CHUNK_TOKENS - step
-    chunks = _split(list(range(3000)))
-    for a, b in zip(chunks, chunks[1:]):
-        if len(a) == CHUNK_TOKENS and len(b) == CHUNK_TOKENS:
-            assert a[-shared:] == b[:shared]
-            assert 0.10 <= shared / CHUNK_TOKENS <= 0.15
-            break
+    assert all(r["token_count"] <= CHILD_TOKENS for r in children)
+    from pysbd import Segmenter
+
+    seg = Segmenter(language="en", clean=False)
+    for child in children:
+        parent_text = parents[child["parent_id"]]["text"]
+        for sentence in seg.segment(child["text"]):
+            assert sentence.strip() in parent_text, "child cuts a sentence in half"
 
 
 def test_parent_linkage(sample_md):
@@ -64,3 +62,22 @@ def test_url_mapping():
     by_file = {r["source_file"]: r["source_url"] for r in records if r["chunk_type"] == "parent"}
     assert by_file["known.md"] == "https://example.com/known"
     assert by_file["unknown.md"] is None
+
+
+def test_pdf_filters_page_numbers_and_headers(tmp_path):
+    import pymupdf
+
+    p = tmp_path / "garbage.pdf"
+    doc = pymupdf.open()
+    for i in range(4):
+        page = doc.new_page()
+        page.insert_text((72, 40), "Running Header", fontsize=10)
+        page.insert_text((72, 100), f"Body sentence {i}.", fontsize=12)
+        page.insert_text((300, 800), "7", fontsize=10)
+    doc.save(p)
+    doc.close()
+
+    text = " ".join(s.text for s in parse_file(p))
+    assert "Running Header" not in text
+    assert "7" not in text
+    assert "Body sentence 0." in text
