@@ -45,7 +45,10 @@ def _embed_batch(client: httpx.Client, texts: list[str]) -> list[list[float]]:
     """
     resp = client.post(
         "/v1/embeddings",
-        json={"model": os.environ.get("EMBEDDING_MODEL", DEFAULT_MODEL), "input": texts},
+        json={
+            "model": os.environ.get("EMBEDDING_MODEL", DEFAULT_MODEL),
+            "input": texts,
+        },
     )
     resp.raise_for_status()
     return [d["embedding"] for d in resp.json()["data"]]
@@ -88,4 +91,6 @@ def run(input_path: str, output_path: str) -> None:
     records = json.loads(Path(input_path).read_text(encoding="utf-8"))
     with make_client() as client:
         embed_records(records, client)
-    Path(output_path).write_text(json.dumps(records, indent=2, ensure_ascii=False), encoding="utf-8")
+    Path(output_path).write_text(
+        json.dumps(records, indent=2, ensure_ascii=False), encoding="utf-8"
+    )

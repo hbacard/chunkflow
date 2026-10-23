@@ -14,7 +14,7 @@ URL = "http://localhost:6333"
 def _is_up() -> bool:
     try:
         return httpx.get(f"{URL}/healthz", timeout=2).status_code == 200
-    except Exception:
+    except httpx.RequestError:
         return False
 
 
@@ -81,10 +81,24 @@ def test_ingest_creates_collection_and_upserts():
 
     async def scenario(client):
         assert await client.collection_exists(COLLECTION)
-        got = await client.retrieve(COLLECTION, ids=["11111111-1111-1111-1111-111111111111", "22222222-2222-2222-2222-222222222222"], with_vectors=True)
+        got = await client.retrieve(
+            COLLECTION,
+            ids=[
+                "11111111-1111-1111-1111-111111111111",
+                "22222222-2222-2222-2222-222222222222",
+            ],
+            with_vectors=True,
+        )
         by_id = {p.id: p for p in got}
-        assert by_id["11111111-1111-1111-1111-111111111111"].payload["text"].startswith("Full installation")
-        assert by_id["22222222-2222-2222-2222-222222222222"].payload["chunk_type"] == "child"
+        assert (
+            by_id["11111111-1111-1111-1111-111111111111"]
+            .payload["text"]
+            .startswith("Full installation")
+        )
+        assert (
+            by_id["22222222-2222-2222-2222-222222222222"].payload["chunk_type"]
+            == "child"
+        )
 
     _run_with_client(scenario)
 
@@ -93,7 +107,9 @@ def test_hybrid_query_returns_parent():
     _ingested()
 
     async def scenario(client):
-        parents = await hybrid_query(client, COLLECTION, "setup and configure", [0.1] * 8, top_k=2)
+        parents = await hybrid_query(
+            client, COLLECTION, "setup and configure", [0.1] * 8, top_k=2
+        )
         assert parents
         assert parents[0]["chunk_type"] == "parent"
         assert "Install" in parents[0]["heading_path"]

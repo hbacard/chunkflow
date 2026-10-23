@@ -4,7 +4,10 @@ from chunkflow.chunker.parse import parse_file
 
 def test_md_section_detection(sample_md):
     sections = parse_file(sample_md)
-    assert [s.heading_path for s in sections] == ["Doc > Installation", "Doc > Advanced"]
+    assert [s.heading_path for s in sections] == [
+        "Doc > Installation",
+        "Doc > Advanced",
+    ]
     assert "More installation text." in sections[0].text
     assert sections[0].page_number is None
 
@@ -59,7 +62,11 @@ def test_url_mapping():
         Section("beta text", "B", None, "unknown.md"),
     ]
     records = chunk_sections(sections, {"known.md": "https://example.com/known"})
-    by_file = {r["source_file"]: r["source_url"] for r in records if r["chunk_type"] == "parent"}
+    by_file = {
+        r["source_file"]: r["source_url"]
+        for r in records
+        if r["chunk_type"] == "parent"
+    }
     assert by_file["known.md"] == "https://example.com/known"
     assert by_file["unknown.md"] is None
 

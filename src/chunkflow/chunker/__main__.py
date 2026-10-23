@@ -27,7 +27,9 @@ def run(input_dir: str, output: str, url_mapping: str | None = None) -> None:
     for p in sorted(Path(input_dir).iterdir()):
         if p.suffix.lower() in (".md", ".pdf"):
             records.extend(chunk_sections(parse_file(p), mapping))
-    Path(output).write_text(json.dumps(records, indent=2, ensure_ascii=False), encoding="utf-8")
+    Path(output).write_text(
+        json.dumps(records, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
 
 
 if __name__ == "__main__":
@@ -36,6 +38,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog="chunkflow chunk")
     parser.add_argument("--input", required=True, help="directory of .md/.pdf files")
     parser.add_argument("--output", required=True, help="output chunks.json path")
-    parser.add_argument("--url-mapping", default=None, help="JSON file mapping source_file -> source_url")
+    parser.add_argument(
+        "--url-mapping",
+        default=None,
+        help="JSON file mapping source_file -> source_url",
+    )
     args = parser.parse_args(sys.argv[1:])
     run(args.input, args.output, args.url_mapping)

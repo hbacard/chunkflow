@@ -21,7 +21,9 @@ def _dim() -> int:
     return int(os.environ.get("EMBEDDING_DIM", str(DEFAULT_DIM)))
 
 
-async def _ensure_collection(client: AsyncQdrantClient, collection: str, dim: int) -> None:
+async def _ensure_collection(
+    client: AsyncQdrantClient, collection: str, dim: int
+) -> None:
     """Create the collection if it does not exist yet.
 
     Creates a collection with a ``dense`` (COSINE, ``dim``) vector space and a
@@ -39,7 +41,9 @@ async def _ensure_collection(client: AsyncQdrantClient, collection: str, dim: in
     if not await client.collection_exists(collection):
         await client.create_collection(
             collection,
-            vectors_config={"dense": models.VectorParams(size=dim, distance=models.Distance.COSINE)},
+            vectors_config={
+                "dense": models.VectorParams(size=dim, distance=models.Distance.COSINE)
+            },
             sparse_vectors_config={"sparse": models.SparseVectorParams()},
         )
 
@@ -64,7 +68,11 @@ def _points(records: list[dict], dim: int) -> list[models.PointStruct]:
     """
     points = []
     for r in records:
-        vector = {"dense": r["dense_vector"]} if r["chunk_type"] == "child" else {"dense": [0.0] * dim}
+        vector = (
+            {"dense": r["dense_vector"]}
+            if r["chunk_type"] == "child"
+            else {"dense": [0.0] * dim}
+        )
         if r["chunk_type"] == "child":
             vector["sparse"] = models.Document(text=r["text"], model="Qdrant/bm25")
         payload = {k: v for k, v in r.items() if k not in ("id", "dense_vector")}
@@ -72,7 +80,9 @@ def _points(records: list[dict], dim: int) -> list[models.PointStruct]:
     return points
 
 
-async def ingest(records: list[dict], client: AsyncQdrantClient, collection: str, dim: int) -> None:
+async def ingest(
+    records: list[dict], client: AsyncQdrantClient, collection: str, dim: int
+) -> None:
     """Ensure the collection exists and upsert all records as points.
 
     Parameters
@@ -90,7 +100,11 @@ async def ingest(records: list[dict], client: AsyncQdrantClient, collection: str
     await client.upsert(collection, points=_points(records, dim))
 
 
-async def run(input_path: str, collection: str = DEFAULT_COLLECTION, url: str = "http://localhost:6333") -> None:
+async def run(
+    input_path: str,
+    collection: str = DEFAULT_COLLECTION,
+    url: str = "http://localhost:6333",
+) -> None:
     """Load records from JSON and upsert them into Qdrant.
 
     Parameters

@@ -26,7 +26,9 @@ class Section:
     source_file: str
 
 
-def parent_record(section: Section, text: str, source_url: str | None, token_count: int) -> dict:
+def parent_record(
+    section: Section, text: str, source_url: str | None, token_count: int
+) -> dict:
     """Build a parent chunk record from a section.
 
     Parameters

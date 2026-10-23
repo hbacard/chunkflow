@@ -18,7 +18,9 @@ _ENC = tiktoken.get_encoding("cl100k_base")
 _SEG = Segmenter(language="en", clean=False)
 
 
-def chunk_sections(sections: list[Section], url_map: dict[str, str] | None = None) -> list[dict]:
+def chunk_sections(
+    sections: list[Section], url_map: dict[str, str] | None = None
+) -> list[dict]:
     """Turn document sections into parent/child chunk records.
 
     Parameters

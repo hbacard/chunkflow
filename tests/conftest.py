@@ -1,6 +1,9 @@
 import pytest
 
-LONG_PARA = ("This is a test paragraph with enough words to generate a reasonable number of tokens. " * 100)
+LONG_PARA = (
+    "This is a test paragraph with enough words to generate a reasonable number of tokens. "
+    * 100
+)
 
 MD_CONTENT = f"""# Doc
 
@@ -34,7 +37,11 @@ def sample_pdf(tmp_path):
     page.insert_text((72, 130), "Installation", fontsize=24)
     y = 180
     for i in range(4):
-        page.insert_text((72, y), f"Body paragraph number {i} with some installation details.", fontsize=12)
+        page.insert_text(
+            (72, y),
+            f"Body paragraph number {i} with some installation details.",
+            fontsize=12,
+        )
         y += 30
     doc.save(p)
     doc.close()

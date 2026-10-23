@@ -11,7 +11,9 @@ def _mock_client(requests_log=None):
             requests_log.append(request)
         body = json.loads(request.content)
         n = len(body["input"])
-        return httpx.Response(200, json={"data": [{"embedding": [0.5] * 8} for _ in range(n)]})
+        return httpx.Response(
+            200, json={"data": [{"embedding": [0.5] * 8} for _ in range(n)]}
+        )
 
     return httpx.Client(base_url="http://test", transport=httpx.MockTransport(handler))
 

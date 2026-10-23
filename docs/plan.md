@@ -100,7 +100,9 @@ No dependency on Qdrant or document parsing.
   ```python
   await client.create_collection(
       "chunkflow",
-      vectors_config={"dense": models.VectorParams(size=DIM, distance=models.Distance.COSINE)},
+      vectors_config={
+          "dense": models.VectorParams(size=DIM, distance=models.Distance.COSINE)
+      },
       sparse_vectors_config={"sparse": models.SparseVectorParams()},
   )
   ```
@@ -191,11 +193,11 @@ PointStruct(
         "text": "full parent section text...",
         "chunk_type": "parent",
         "source_file": "doc.md",
-        "source_url": "https://...",          # from url_mapping.json, null if not web-origin
-        "page_number": null,                  # null for MD
+        "source_url": "https://...",  # from url_mapping.json, null if not web-origin
+        "page_number": null,  # null for MD
         "heading_path": "Doc > Installation",
         "token_count": 3800,
-    }
+    },
 )
 ```
 
@@ -205,20 +207,22 @@ PointStruct(
 PointStruct(
     id="child-uuid",
     vector={
-        "dense": [0.012, -0.034, ...],                                   # real embedding
-        "sparse": models.Document(text="child chunk text...", model="bm25"),  # Qdrant computes server-side
+        "dense": [0.012, -0.034, ...],  # real embedding
+        "sparse": models.Document(
+            text="child chunk text...", model="bm25"
+        ),  # Qdrant computes server-side
     },
     payload={
         "text": "child chunk text...",
         "chunk_type": "child",
         "source_file": "doc.md",
-        "source_url": "https://...",          # from url_mapping.json, null if not web-origin
-        "page_number": null,                  # null for MD
+        "source_url": "https://...",  # from url_mapping.json, null if not web-origin
+        "page_number": null,  # null for MD
         "heading_path": "Doc > Installation",
         "parent_id": "parent-uuid",
         "child_index": 0,
         "token_count": 980,
-    }
+    },
 )
 ```
 
@@ -250,7 +254,7 @@ results = await client.query_points(
     query=models.FusionQuery(fusion=models.Fusion.RRF),
     prefetch=[
         models.Prefetch(
-            query=dense_query_vector,       # from embedding model
+            query=dense_query_vector,  # from embedding model
             using="dense",
             limit=20,
         ),
@@ -261,13 +265,19 @@ results = await client.query_points(
         ),
     ],
     query_filter=models.Filter(
-        must=[models.FieldCondition(key="chunk_type", match=models.MatchValue(value="child"))]
+        must=[
+            models.FieldCondition(
+                key="chunk_type", match=models.MatchValue(value="child")
+            )
+        ]
     ),
     limit=10,
 )
 
 # Fetch parent texts by ID
-parent_ids = {p.payload["parent_id"] for p in results.points if p.payload.get("parent_id")}
+parent_ids = {
+    p.payload["parent_id"] for p in results.points if p.payload.get("parent_id")
+}
 parents = await client.retrieve("my-collection-name", ids=list(parent_ids))
 ```
 

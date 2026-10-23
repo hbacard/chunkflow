@@ -83,15 +83,18 @@ import asyncio
 from qdrant_client import AsyncQdrantClient
 from chunkflow.ingester.retrieve import hybrid_query
 
+
 async def main():
     client = AsyncQdrantClient(url="http://localhost:6333")
     parents = await hybrid_query(
-        client, "chunkflow",
+        client,
+        "chunkflow",
         query_text="how do I install chunkflow",
         query_vector=[0.0] * 768,
         top_k=5,
     )
     await client.close()
+
 
 asyncio.run(main())
 ```

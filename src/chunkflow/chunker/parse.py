@@ -69,7 +69,9 @@ def _parse_md(path: Path) -> list[Section]:
     def flush() -> None:
         text = " ".join(buf).strip()
         if text:
-            sections.append(Section(text, " > ".join(h for _, h in stack), None, path.name))
+            sections.append(
+                Section(text, " > ".join(h for _, h in stack), None, path.name)
+            )
         buf.clear()
 
     for tok in tokens:
@@ -150,7 +152,11 @@ def _is_page_number(text: str) -> bool:
         True if the text is short and only digits (optionally slash-separated).
     """
     t = text.strip()
-    return len(t) <= 8 and bool(t) and all(p.isdigit() for p in t.replace("/", " ").split())
+    return (
+        len(t) <= 8
+        and bool(t)
+        and all(p.isdigit() for p in t.replace("/", " ").split())
+    )
 
 
 def _parse_pdf(path: Path) -> list[Section]:
@@ -187,7 +193,9 @@ def _parse_pdf(path: Path) -> list[Section]:
         return []
 
     counts = Counter(t for _, _, t in raw)
-    repeated = {t for t, c in counts.items() if c > max(1, int(n_pages * 0.6)) and len(t) < 80}
+    repeated = {
+        t for t, c in counts.items() if c > max(1, int(n_pages * 0.6)) and len(t) < 80
+    }
 
     blocks: list[tuple[int, float, str]] = []
     for page, size, text in raw:
@@ -204,7 +212,12 @@ def _parse_pdf(path: Path) -> list[Section]:
             return False
         return not text.endswith((".", ",", ";"))
 
-    levels = {s: i + 1 for i, s in enumerate(sorted({s for _, s, t in blocks if is_heading(t, s)}, reverse=True))}
+    levels = {
+        s: i + 1
+        for i, s in enumerate(
+            sorted({s for _, s, t in blocks if is_heading(t, s)}, reverse=True)
+        )
+    }
 
     sections: list[Section] = []
     stack: list[tuple[int, str]] = []
@@ -214,7 +227,9 @@ def _parse_pdf(path: Path) -> list[Section]:
     def flush() -> None:
         text = " ".join(buf).strip()
         if text:
-            sections.append(Section(text, " > ".join(h for _, h in stack), page_no, path.name))
+            sections.append(
+                Section(text, " > ".join(h for _, h in stack), page_no, path.name)
+            )
         buf.clear()
 
     for page, size, text in blocks:

@@ -41,14 +41,24 @@ async def hybrid_query(
         query=models.FusionQuery(fusion=models.Fusion.RRF),
         prefetch=[
             models.Prefetch(query=query_vector, using="dense", limit=prefetch_k),
-            models.Prefetch(query=models.Document(text=query_text, model="Qdrant/bm25"), using="sparse", limit=prefetch_k),
+            models.Prefetch(
+                query=models.Document(text=query_text, model="Qdrant/bm25"),
+                using="sparse",
+                limit=prefetch_k,
+            ),
         ],
         query_filter=models.Filter(
-            must=[models.FieldCondition(key="chunk_type", match=models.MatchValue(value="child"))]
+            must=[
+                models.FieldCondition(
+                    key="chunk_type", match=models.MatchValue(value="child")
+                )
+            ]
         ),
         limit=top_k,
     )
-    parent_ids = list({p.payload["parent_id"] for p in results.points if p.payload.get("parent_id")})
+    parent_ids = list(
+        {p.payload["parent_id"] for p in results.points if p.payload.get("parent_id")}
+    )
     if not parent_ids:
         return []
     parents = await client.retrieve(collection, ids=parent_ids)

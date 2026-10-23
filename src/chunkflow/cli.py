@@ -11,24 +11,40 @@ def main(argv=None) -> None:
     argv : list[str] | None
         Optional argument list; defaults to ``sys.argv[1:]``.
     """
-    parser = argparse.ArgumentParser(prog="chunkflow", description="3-stage parent-child chunking pipeline")
+    parser = argparse.ArgumentParser(
+        prog="chunkflow", description="3-stage parent-child chunking pipeline"
+    )
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p_chunk = sub.add_parser("chunk", help="Stage 1: split docs into parent/child chunks")
+    p_chunk = sub.add_parser(
+        "chunk", help="Stage 1: split docs into parent/child chunks"
+    )
     p_chunk.add_argument("--input", required=True, help="directory of .md/.pdf files")
     p_chunk.add_argument("--output", required=True, help="output chunks.json path")
-    p_chunk.add_argument("--url-mapping", default=None, help="JSON file mapping source_file -> source_url")
+    p_chunk.add_argument(
+        "--url-mapping",
+        default=None,
+        help="JSON file mapping source_file -> source_url",
+    )
     p_chunk.set_defaults(run=_run_chunk)
 
     p_embed = sub.add_parser("embed", help="Stage 2: embed child chunks")
     p_embed.add_argument("--input", required=True, help="input chunks.json path")
-    p_embed.add_argument("--output", required=True, help="output embedded_chunks.json path")
+    p_embed.add_argument(
+        "--output", required=True, help="output embedded_chunks.json path"
+    )
     p_embed.set_defaults(run=_run_embed)
 
     p_ingest = sub.add_parser("ingest", help="Stage 3: upsert into Qdrant")
-    p_ingest.add_argument("--input", required=True, help="input embedded_chunks.json path")
-    p_ingest.add_argument("--collection", default="chunkflow", help="Qdrant collection name")
-    p_ingest.add_argument("--url", default="http://localhost:6333", help="Qdrant REST URL")
+    p_ingest.add_argument(
+        "--input", required=True, help="input embedded_chunks.json path"
+    )
+    p_ingest.add_argument(
+        "--collection", default="chunkflow", help="Qdrant collection name"
+    )
+    p_ingest.add_argument(
+        "--url", default="http://localhost:6333", help="Qdrant REST URL"
+    )
     p_ingest.set_defaults(run=_run_ingest)
 
     args = parser.parse_args(argv)
