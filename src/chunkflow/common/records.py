@@ -26,13 +26,15 @@ class Section:
     source_file: str
 
 
-def parent_record(section: Section, source_url: str | None, token_count: int) -> dict:
+def parent_record(section: Section, text: str, source_url: str | None, token_count: int) -> dict:
     """Build a parent chunk record from a section.
 
     Parameters
     ----------
     section : Section
-        Section to base the parent record on.
+        Section providing the parent's metadata (file, heading path, page).
+    text : str
+        Full merged text of the parent's sections.
     source_url : str | None
         Optional URL of the source file.
     token_count : int
@@ -45,7 +47,7 @@ def parent_record(section: Section, source_url: str | None, token_count: int) ->
     """
     return {
         "id": str(uuid4()),
-        "text": section.text,
+        "text": text,
         "chunk_type": "parent",
         "source_file": section.source_file,
         "source_url": source_url,

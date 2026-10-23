@@ -41,7 +41,7 @@ def chunk_sections(sections: list[Section], url_map: dict[str, str] | None = Non
         if not tokens:
             continue
         first = group[0]
-        parent = parent_record(first, url_map.get(first.source_file), len(tokens))
+        parent = parent_record(first, text, url_map.get(first.source_file), len(tokens))
         records.append(parent)
         for index, chunk in enumerate(_split_sentences(text)):
             records.append(child_record(parent, chunk, index, len(_ENC.encode(chunk))))
