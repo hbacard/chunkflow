@@ -1,7 +1,7 @@
 [project]
 name = "ChunkFlow"
 version = "0.1.0"
-description = "Default template for PDM package"
+description = "A 3-stage parent-child chunking pipeline for Markdown/PDF documents, backed by Qdrant hybrid search."
 authors = [
     {name = "Hugo Bacard",email = "hbacard@pm.me"},
 ]
@@ -10,6 +10,9 @@ requires-python = ">=3.12,<3.14"
 readme = "README.md"
 license = {text = "CC BY 4.0"}
 
+
+[project.scripts]
+chunkflow = "chunkflow.cli:main"
 
 [build-system]
 requires = ["pdm-backend"]
