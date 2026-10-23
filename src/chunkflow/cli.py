@@ -1,7 +1,16 @@
+"""Command-line entrypoint exposing the 3-stage chunkflow pipeline (chunk/embed/ingest)."""
+
 import argparse
 
 
 def main(argv=None) -> None:
+    """Parse CLI arguments and dispatch to the matching stage runner.
+
+    Parameters
+    ----------
+    argv : list[str] | None
+        Optional argument list; defaults to ``sys.argv[1:]``.
+    """
     parser = argparse.ArgumentParser(prog="chunkflow", description="3-stage parent-child chunking pipeline")
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -27,18 +36,39 @@ def main(argv=None) -> None:
 
 
 def _run_chunk(args) -> None:
+    """Run the chunk stage (Stage 1) from parsed CLI args.
+
+    Parameters
+    ----------
+    args : argparse.Namespace
+        Parsed arguments with ``input``, ``output`` and ``url_mapping``.
+    """
     from chunkflow.chunker.__main__ import run
 
     run(input_dir=args.input, output=args.output, url_mapping=args.url_mapping)
 
 
 def _run_embed(args) -> None:
+    """Run the embed stage (Stage 2) from parsed CLI args.
+
+    Parameters
+    ----------
+    args : argparse.Namespace
+        Parsed arguments with ``input`` and ``output``.
+    """
     from chunkflow.embedder.embed import run
 
     run(input_path=args.input, output_path=args.output)
 
 
 def _run_ingest(args) -> None:
+    """Run the ingest stage (Stage 3) from parsed CLI args.
+
+    Parameters
+    ----------
+    args : argparse.Namespace
+        Parsed arguments with ``input``, ``collection`` and ``url``.
+    """
     import asyncio
 
     from chunkflow.ingester.ingest import run
