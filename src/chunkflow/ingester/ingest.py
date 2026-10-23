@@ -4,10 +4,28 @@ import json
 import os
 from pathlib import Path
 
+from fastembed import SparseTextEmbedding
 from qdrant_client import AsyncQdrantClient, models
 
 DEFAULT_COLLECTION = "chunkflow"
 DEFAULT_DIM = 768
+SPARSE_MODEL = "Qdrant/bm25"
+
+_embedder: SparseTextEmbedding | None = None
+
+
+def _sparse_embedder() -> SparseTextEmbedding:
+    """Return a lazily-initialized BM25 sparse embedder (cached).
+
+    Returns
+    -------
+    SparseTextEmbedding
+        The fastembed sparse embedder for ``Qdrant/bm25``.
+    """
+    global _embedder
+    if _embedder is None:
+        _embedder = SparseTextEmbedding(SPARSE_MODEL)
+    return _embedder
 
 
 def _dim() -> int:
@@ -51,8 +69,8 @@ async def _ensure_collection(
 def _points(records: list[dict], dim: int) -> list[models.PointStruct]:
     """Convert records into Qdrant points with hybrid vectors and payloads.
 
-    Child records get their dense vector plus a BM25 sparse vector; parent records
-    get a zero dense vector (parents are not searched directly).
+    Child records get their dense vector plus a client-side BM25 sparse vector;
+    parent records get a zero dense vector (parents are not searched directly).
 
     Parameters
     ----------
@@ -66,15 +84,22 @@ def _points(records: list[dict], dim: int) -> list[models.PointStruct]:
     list[models.PointStruct]
         Qdrant points ready for upsert.
     """
+    children = [r for r in records if r["chunk_type"] == "child"]
+    sparse_by_id = {}
+    if children:
+        embeddings = _sparse_embedder().embed([r["text"] for r in children])
+        sparse_by_id = {
+            r["id"]: models.SparseVector(
+                indices=e.indices.tolist(), values=e.values.tolist()
+            )
+            for r, e in zip(children, embeddings)
+        }
     points = []
     for r in records:
-        vector = (
-            {"dense": r["dense_vector"]}
-            if r["chunk_type"] == "child"
-            else {"dense": [0.0] * dim}
-        )
         if r["chunk_type"] == "child":
-            vector["sparse"] = models.Document(text=r["text"], model="Qdrant/bm25")
+            vector = {"dense": r["dense_vector"], "sparse": sparse_by_id[r["id"]]}
+        else:
+            vector = {"dense": [0.0] * dim}
         payload = {k: v for k, v in r.items() if k not in ("id", "dense_vector")}
         points.append(models.PointStruct(id=r["id"], vector=vector, payload=payload))
     return points

@@ -26,7 +26,7 @@ Decisions locked: **pdm** (package manager), **argparse** (CLI), **pytest** (tes
 
 ## M3 — Stage 3: ingester → Qdrant
 
-- `ingester/ingest.py`: `AsyncQdrantClient`; create collection (`dense` + `sparse` named vectors, size via env `EMBEDDING_DIM`) if absent; upsert parent points (zero dense vector, full text payload) + child points (`models.Document(text, model="bm25")` sparse)
+- `ingester/ingest.py`: `AsyncQdrantClient`; create collection (`dense` + `sparse` named vectors, size via env `EMBEDDING_DIM`) if absent; upsert parent points (zero dense vector, full text payload) + child points (client-side fastembed BM25 `SparseVector`)
 - `ingester/retrieve.py`: hybrid query helper (RRF prefetch, `chunk_type="child"` filter → collect `parent_id` → `retrieve()`)
 - Tests: against a test collection on local Qdrant (skip if not running) + payload shape asserts
 

@@ -29,7 +29,7 @@ Qdrant Collection (two point types, named vectors)
 | MD parsing | `markdown-it-py` for heading hierarchy |
 | Chunking | Custom Python, no framework |
 | Embedding model | OpenAI-compatible API (e.g. Ollama `embeddinggemma-2:440m` via `/v1/embeddings`) |
-| Sparse vectors | Qdrant server-side BM25 inference (via `models.Document(text=..., model="bm25")`) |
+| Sparse vectors | Client-side BM25 via fastembed `SparseTextEmbedding("Qdrant/bm25")` → `SparseVector` |
 | Vector DB | Qdrant — single collection, named vectors ("dense" + "sparse"), hybrid search with RRF |
 | Qdrant client | `AsyncQdrantClient` (async throughout) |
 | Qdrant deployment | Docker container with persisted volume (`docker-compose.yml`) |
@@ -108,7 +108,7 @@ No dependency on Qdrant or document parsing.
   ```
 - Builds two types of `PointStruct` with named vectors:
   - **Parent points**: `vector={"dense": [0.0, ...]}` (zero vector, same dims), `chunk_type="parent"`, payload includes full section text. No sparse vector — parents are never searched.
-  - **Child points**: `vector={"dense": [embedding], "sparse": models.Document(text=child_text, model="bm25")}`, `chunk_type="child"`, payload includes chunk text + `parent_id` reference. Qdrant computes the sparse/BM25 vector server-side.
+  - **Child points**: `vector={"dense": [embedding], "sparse": SparseVector(indices, values)}` (BM25 computed client-side via fastembed), `chunk_type="child"`, payload includes chunk text + `parent_id` reference.
 - `source_url` already present in `embedded_chunks.json` (injected at stage 1) — passed through to payload as-is.
 - Upserts all points to a single Qdrant collection via `await client.upsert(...)`.
 
@@ -150,7 +150,7 @@ Contains both parent and child records:
 
 ### `embedded_chunks.json` (stage 2 → 3)
 
-Same as above, but child records have an added `dense_vector` field. Parent records pass through unchanged. (Sparse/BM25 vector is computed server-side by Qdrant at ingest time, not stored in the JSON contract.)
+Same as above, but child records have an added `dense_vector` field. Parent records pass through unchanged. (Sparse/BM25 vector is computed client-side via fastembed at ingest time, not stored in the JSON contract.)
 
 ```json
 [
@@ -208,9 +208,7 @@ PointStruct(
     id="child-uuid",
     vector={
         "dense": [0.012, -0.034, ...],  # real embedding
-        "sparse": models.Document(
-            text="child chunk text...", model="bm25"
-        ),  # Qdrant computes server-side
+        "sparse": models.SparseVector(indices=..., values=...),  # client-side fastembed BM25
     },
     payload={
         "text": "child chunk text...",
@@ -233,7 +231,7 @@ Query (text)
   → Embed query via same embedding model → dense query vector
   → Qdrant query_points with two prefetches:
       1. Dense:  query=<dense_vector>,  using="dense",  limit=K
-      2. Sparse: query=Document(text=query_text, model="bm25"), using="sparse", limit=K
+      2. Sparse: query=SparseVector (fastembed BM25), using="sparse", limit=K
   → Server-side Reciprocal Rank Fusion (RRF) merges both result sets
   → Filter: chunk_type="child" (parents excluded from search)
   → Top-K fused child results
@@ -259,7 +257,7 @@ results = await client.query_points(
             limit=20,
         ),
         models.Prefetch(
-            query=models.Document(text=query_text, model="bm25"),
+            query=models.SparseVector(indices=..., values=...),  # client-side fastembed BM25
             using="sparse",
             limit=20,
         ),

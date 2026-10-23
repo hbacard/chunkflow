@@ -1,6 +1,11 @@
 """Hybrid retrieval: RRF-fuse dense + BM25 sparse searches, then return parent records."""
 
+import asyncio
+
+from fastembed import SparseTextEmbedding
 from qdrant_client import AsyncQdrantClient, models
+
+SPARSE_MODEL = "Qdrant/bm25"
 
 
 async def hybrid_query(
@@ -36,13 +41,21 @@ async def hybrid_query(
     list[dict]
         Payloads of the matched parent records.
     """
+    sparse = list(
+        await asyncio.to_thread(
+            lambda: SparseTextEmbedding(SPARSE_MODEL).query_embed([query_text])
+        )
+    )[0]
+    sparse_vector = models.SparseVector(
+        indices=sparse.indices.tolist(), values=sparse.values.tolist()
+    )
     results = await client.query_points(
         collection_name=collection,
         query=models.FusionQuery(fusion=models.Fusion.RRF),
         prefetch=[
             models.Prefetch(query=query_vector, using="dense", limit=prefetch_k),
             models.Prefetch(
-                query=models.Document(text=query_text, model="Qdrant/bm25"),
+                query=sparse_vector,
                 using="sparse",
                 limit=prefetch_k,
             ),

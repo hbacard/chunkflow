@@ -5,7 +5,7 @@ Qdrant hybrid search.
 
 - **Stage 1 (chunk):** split docs into parent (section) + child (token-windowed chunk) records → `chunks.json`
 - **Stage 2 (embed):** embed child texts via an OpenAI-compatible `/v1/embeddings` API → `embedded_chunks.json`
-- **Stage 3 (ingest):** upsert records into Qdrant; parents stored once with zero vectors, children with dense + sparse (BM25) vectors
+- **Stage 3 (ingest):** upsert records into Qdrant; parents stored once with zero vectors, children with dense + sparse (BM25, computed client-side via fastembed) vectors
 
 Retrieval is hybrid (dense + sparse BM25 with Reciprocal Rank Fusion) over children,
 then parents are fetched by ID — see `chunkflow/ingester/retrieve.py`.

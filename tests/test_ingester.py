@@ -2,7 +2,7 @@ import asyncio
 
 import httpx
 import pytest
-from qdrant_client import AsyncQdrantClient
+from qdrant_client import AsyncQdrantClient, models
 
 from chunkflow.ingester.ingest import _points, ingest
 from chunkflow.ingester.retrieve import hybrid_query
@@ -61,7 +61,8 @@ def test_points_payload_shape():
     points = _points(_sample_records(), dim=8)
     parent, child = points
     assert parent.vector == {"dense": [0.0] * 8}
-    assert child.vector["sparse"].model == "Qdrant/bm25"
+    assert isinstance(child.vector["sparse"], models.SparseVector)
+    assert len(child.vector["sparse"].indices) > 0
     assert child.vector["dense"] == [0.1] * 8
     assert child.payload["parent_id"] == "11111111-1111-1111-1111-111111111111"
     assert "id" not in child.payload and "dense_vector" not in child.payload
