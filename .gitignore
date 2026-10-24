@@ -8,3 +8,6 @@ __pycache__/
 *.env
 markdowns_*
 blob
+*chunks.json
+*_embeddings.json
+*map.json
