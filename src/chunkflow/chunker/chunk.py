@@ -13,7 +13,7 @@ from pysbd import Segmenter
 from chunkflow.common.records import Section, child_record, parent_record
 
 PARENT_TOKENS = 2000
-CHILD_TOKENS = 300
+CHILD_TOKENS = 1000
 _ENC = tiktoken.get_encoding("cl100k_base")
 _SEG = Segmenter(language="en", clean=False)
 

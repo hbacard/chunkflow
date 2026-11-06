@@ -1,7 +1,11 @@
 """Command-line entrypoint exposing the 3-stage chunkflow pipeline (chunk/embed/ingest)."""
 
 import argparse
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
+COLLECTION_NAME = os.environ.get('COLLECTION_NAME', 'chunkflow')
 
 def main(argv=None) -> None:
     """Parse CLI arguments and dispatch to the matching stage runner.
@@ -40,7 +44,7 @@ def main(argv=None) -> None:
         "--input", required=True, help="input embedded_chunks.json path"
     )
     p_ingest.add_argument(
-        "--collection", default="chunkflow", help="Qdrant collection name"
+        "--collection", default=COLLECTION_NAME, help="Qdrant collection name"
     )
     p_ingest.add_argument(
         "--url", default="http://localhost:6333", help="Qdrant REST URL"

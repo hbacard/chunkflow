@@ -10,9 +10,10 @@ from qdrant_client import AsyncQdrantClient, models
 from chunkflow.embedder.embed import _embed, make_client
 from chunkflow.ingester.ingest import _dim, _ensure_collection, _sparse_embedder
 from chunkflow.ingester.retrieve import hybrid_query
-
-QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
-COLLECTION = os.getenv("COLLECTION_NAME", "new-academic")
+from dotenv import load_dotenv
+load_dotenv()
+QDRANT_URL = os.environ.get("QDRANT_URL", "http://localhost:6333")
+COLLECTION = os.environ.get("COLLECTION_NAME", "docs_rag")
 
 qdrant = AsyncQdrantClient(url=QDRANT_URL)
 embedder = make_client()
@@ -50,7 +51,7 @@ async def qdrant_store(
         child_payload["page"] = page
 
     dense = await asyncio.to_thread(_embed, embedder, text)
-    sparse = (await asyncio.to_thread(_sparse_embedder().embed, [text]))[0]
+    sparse = list(await asyncio.to_thread(_sparse_embedder().embed, [text]))[0]
 
     await qdrant.upsert(
         COLLECTION,
@@ -96,4 +97,5 @@ async def qdrant_find(query: str, source: str | None = None, limit: int = 5) -> 
 
 
 if __name__ == "__main__":
-    mcp.run()
+    transport = "streamable-http"
+    mcp.run(transport=transport, port=8001, host="0.0.0.0")
