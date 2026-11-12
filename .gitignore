@@ -11,3 +11,6 @@ blob
 *chunks.json
 *_embeddings.json
 *map.json
+*ijclab.json
+.DS_Store
+uv.lock
