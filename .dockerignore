@@ -1,0 +1,14 @@
+docs
+markdowns_support
+tests
+docker-compose.yml
+.env.example
+.pdm-python
+Dockerfile
+*.json
+.pdm-build
+samples
+.venv
+.env
+.git
+.DS_Store
