@@ -17,6 +17,64 @@ pdm install          # Python >=3.12,<3.14
 docker compose up -d # Qdrant on localhost:6333
 ```
 
+This is the local development install (Qdrant in a container, pipeline run with
+`pdm`). To run the whole stack — including the MCP server — in containers, see
+[Docker](#docker).
+
+## Docker
+
+### Run the full stack
+
+```bash
+docker compose up -d --build
+```
+
+This starts two services:
+
+| Service  | Image / build          | Ports                              | Notes                                  |
+|----------|------------------------|------------------------------------|----------------------------------------|
+| `qdrant` | `qdrant/qdrant:v1.20.0` | REST `6333`, gRPC `6334`           | Data persisted in the `qdrant_data` volume |
+| `ragmcp` | local `Dockerfile`     | streamable HTTP `8001`             | MCP server, waits for Qdrant to be healthy |
+
+Ports are exposed on all interfaces so the stack can be reached over the LAN.
+Both services run with resource limits and reduced privileges (`cap_drop: ALL`,
+`no-new-privileges`).
+
+### Connect to the MCP server
+
+The MCP server speaks **streamable HTTP** — point your MCP client at
+`http://<host>:8001/mcp`.
+
+### Environment
+
+```bash
+cp env.example .env   # then edit as needed
+```
+
+Within the compose stack:
+
+- `QDRANT_URL` is set automatically to `http://qdrant:6333` (Docker service-name
+  resolution), so the MCP server reaches the Qdrant container.
+- `EMBEDDING_BASE_URL` must reach your host's Ollama. Inside a container
+  `localhost` points to the container itself, so use
+  `http://host.docker.internal:11434` — the compose file maps
+  `host.docker.internal` to the host.
+
+### Smoke test
+
+```bash
+./scripts/smoke_test.sh
+```
+
+Builds the image, runs it on a free port, and verifies the MCP `initialize`
+handshake.
+
+### Build the image on its own
+
+```bash
+docker build -t chunkflow .
+```
+
 ## Usage
 
 ```bash
@@ -29,9 +87,11 @@ chunkflow ingest --input embedded_chunks.json
 
 | Variable | Default | Used by |
 |---|---|---|
-| `EMBEDDING_BASE_URL` | `http://localhost:11434` | embed |
+| `EMBEDDING_BASE_URL` | `http://localhost:11434` | embed, MCP server |
 | `EMBEDDING_MODEL` | `embeddinggemma-2:440m` | embed |
 | `EMBEDDING_DIM` | `768` | ingest |
+| `QDRANT_URL` | `http://localhost:6333` | ingest, MCP server |
+| `COLLECTION_NAME` | `docs_rag` | ingest, MCP server |
 
 ## Tests
 
