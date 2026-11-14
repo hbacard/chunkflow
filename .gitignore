@@ -13,4 +13,9 @@ blob
 *map.json
 *ijclab.json
 .DS_Store
-uv.lock
+
+# Coverage reports
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/

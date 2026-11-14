@@ -41,11 +41,13 @@ async def hybrid_query(
     list[dict]
         Payloads of the matched parent records.
     """
-    sparse = list(
-        await asyncio.to_thread(
-            lambda: SparseTextEmbedding(SPARSE_MODEL).query_embed([query_text])
+    sparse = next(
+        iter(
+            await asyncio.to_thread(
+                lambda: SparseTextEmbedding(SPARSE_MODEL).query_embed([query_text])
+            )
         )
-    )[0]
+    )
     sparse_vector = models.SparseVector(
         indices=sparse.indices.tolist(), values=sparse.values.tolist()
     )

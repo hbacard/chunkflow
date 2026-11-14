@@ -1,0 +1,23 @@
+{
+  "title": "ChunkFlow",
+  "description": "A 3-stage parent-child chunking pipeline for Markdown/PDF documents with an ingestion module to a Qdrant vector database (hybrid dense + BM25 retrieval).",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "Apache-2.0",
+  "creators": [
+    {
+      "name": "Hugo Bacard",
+      "orcid": "0000-0001-9216-494X",
+      "affiliation": "IJCLab, IN2P3/CNRS"
+    }
+  ],
+  "keywords": [
+    "RAG",
+    "chunking",
+    "Qdrant",
+    "vector database",
+    "MCP",
+    "Markdown",
+    "PDF"
+  ]
+}

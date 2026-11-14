@@ -1,0 +1,30 @@
+name: Feature request
+description: Suggest an enhancement for ChunkFlow
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement! Please describe the feature and its value.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What problem does this feature solve? What use case is missing?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: A concrete description of the feature, its interface, and behavior.
+    validations:
+      required: false
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative approaches
+      description: Any workarounds or alternatives you considered.
+    validations:
+      required: false

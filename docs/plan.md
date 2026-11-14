@@ -208,7 +208,9 @@ PointStruct(
     id="child-uuid",
     vector={
         "dense": [0.012, -0.034, ...],  # real embedding
-        "sparse": models.SparseVector(indices=..., values=...),  # client-side fastembed BM25
+        "sparse": models.SparseVector(
+            indices=..., values=...
+        ),  # client-side fastembed BM25
     },
     payload={
         "text": "child chunk text...",
@@ -257,7 +259,9 @@ results = await client.query_points(
             limit=20,
         ),
         models.Prefetch(
-            query=models.SparseVector(indices=..., values=...),  # client-side fastembed BM25
+            query=models.SparseVector(
+                indices=..., values=...
+            ),  # client-side fastembed BM25
             using="sparse",
             limit=20,
         ),

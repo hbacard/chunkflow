@@ -54,6 +54,7 @@ def _embed(client: httpx.Client, text: str) -> list[float]:
     data = resp.json()["data"]
     return data[0]["embedding"]
 
+
 def _embed_batch(client: httpx.Client, texts: list[str]) -> list[list[float]]:
     """Embed one batch of texts via the embeddings endpoint.
 
