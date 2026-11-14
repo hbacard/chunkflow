@@ -4,13 +4,14 @@ import asyncio
 import os
 import uuid
 
+from dotenv import load_dotenv
 from mcp.server.mcpserver import MCPServer
 from qdrant_client import AsyncQdrantClient, models
 
 from chunkflow.embedder.embed import _embed, make_client
 from chunkflow.ingester.ingest import _dim, _ensure_collection, _sparse_embedder
 from chunkflow.ingester.retrieve import hybrid_query
-from dotenv import load_dotenv
+
 load_dotenv()
 QDRANT_URL = os.environ.get("QDRANT_URL", "http://localhost:6333")
 COLLECTION = os.environ.get("COLLECTION_NAME", "docs_rag")
@@ -46,12 +47,18 @@ async def qdrant_store(
     parent_payload = {"chunk_type": "parent", "text": text, "source": source, **extra}
     if page is not None:
         parent_payload["page"] = page
-    child_payload = {"chunk_type": "child", "parent_id": parent_id, "text": text, "source": source, **extra}
+    child_payload = {
+        "chunk_type": "child",
+        "parent_id": parent_id,
+        "text": text,
+        "source": source,
+        **extra,
+    }
     if page is not None:
         child_payload["page"] = page
 
     dense = await asyncio.to_thread(_embed, embedder, text)
-    sparse = list(await asyncio.to_thread(_sparse_embedder().embed, [text]))[0]
+    sparse = next(iter(await asyncio.to_thread(_sparse_embedder().embed, [text])))
 
     await qdrant.upsert(
         COLLECTION,
@@ -77,7 +84,9 @@ async def qdrant_store(
 
 
 @mcp.tool()
-async def qdrant_find(query: str, source: str | None = None, limit: int = 5) -> list[dict]:
+async def qdrant_find(
+    query: str, source: str | None = None, limit: int = 5
+) -> list[dict]:
     """Recherche hybride (dense + BM25) dans Qdrant, retourne les parents correspondants.
 
     Args:

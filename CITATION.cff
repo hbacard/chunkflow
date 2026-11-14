@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use ChunkFlow in your research, please cite it as described in this file."
+title: "ChunkFlow"
+abstract: >-
+  A 3-stage parent-child chunking pipeline for Markdown/PDF documents with an
+  ingestion module to a Qdrant vector database (hybrid dense + BM25 retrieval).
+keywords:
+  - RAG
+  - chunking
+  - Qdrant
+  - vector database
+  - MCP
+  - Markdown
+  - PDF
+license: Apache-2.0
+version: "0.1.0"
+date-released: "2026-11-14"
+repository-code: "https://github.com/hbacard/chunkflow"
+authors:
+  - family-names: Bacard
+    given-names: Hugo
+    orcid: "https://orcid.org/0000-0001-9216-494X"
+    email: "hbacard@pm.me"
+    affiliation: "IJCLab, IN2P3/CNRS"

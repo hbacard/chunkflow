@@ -20,7 +20,24 @@ dependencies = [
 ]
 requires-python = ">=3.12,<3.14"
 readme = "README.md"
-license = {text = "CC BY 4.0"}
+license = "Apache-2.0"
+keywords = [
+    "rag",
+    "chunking",
+    "qdrant",
+    "vector database",
+    "mcp",
+    "markdown",
+    "pdf",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 
 
 [project.scripts]
@@ -35,10 +52,28 @@ distribution = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-q"
+addopts = "-q --cov=chunkflow --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["chunkflow"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+# Regression floor (ingester tests skip without Qdrant); raise as coverage grows.
+fail_under = 60
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.format]
+quote-style = "double"
 
 [dependency-groups]
 dev = [
     "ruff>=0.17.2",
     "mcp[cli]>=2.3.0",
+    "pytest-cov>=6.0.0",
 ]

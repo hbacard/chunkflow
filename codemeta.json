@@ -1,0 +1,40 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "chunkflow",
+  "name": "ChunkFlow",
+  "description": "A 3-stage parent-child chunking pipeline for Markdown/PDF documents with an ingestion module to a Qdrant vector database (hybrid dense + BM25 retrieval).",
+  "version": "0.1.0",
+  "license": "https://spdx.org/licenses/Apache-2.0",
+  "codeRepository": "https://github.com/hbacard/chunkflow",
+  "dateCreated": "2026-10-23",
+  "dateModified": "2026-11-14",
+  "programmingLanguage": "Python",
+  "runtimePlatform": "Python >=3.12,<3.14",
+  "developmentStatus": "active",
+  "buildInstructions": "https://github.com/hbacard/chunkflow#setup",
+  "readme": "https://github.com/hbacard/chunkflow/blob/main/README.md",
+  "contIntegration": "https://github.com/hbacard/chunkflow/actions",
+  "author": [
+    {
+      "@type": "Person",
+      "@id": "https://orcid.org/0000-0001-9216-494X",
+      "givenName": "Hugo",
+      "familyName": "Bacard",
+      "email": "hbacard@pm.me",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "IJCLab, IN2P3/CNRS"
+      }
+    }
+  ],
+  "keywords": [
+    "RAG",
+    "chunking",
+    "Qdrant",
+    "vector database",
+    "MCP",
+    "Markdown",
+    "PDF"
+  ]
+}

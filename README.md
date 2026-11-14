@@ -1,5 +1,10 @@
 # ChunkFlow
 
+[![CI](https://github.com/hbacard/chunkflow/actions/workflows/ci.yml/badge.svg)](https://github.com/hbacard/chunkflow/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/github/v/tag/hbacard/chunkflow)](https://github.com/hbacard/chunkflow/tags)
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache--2.0-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue.svg)](pyproject.toml)
+
 A 3-stage parent-child chunking pipeline for Markdown/PDF documents, backed by
 Qdrant hybrid search.
 
@@ -105,4 +110,14 @@ Ingester tests skip when Qdrant is not running.
 
 - [`docs/plan.md`](docs/plan.md) — architecture, JSON contract, retrieval flow
 - [`docs/implementation_milestones.md`](docs/implementation_milestones.md) — build milestones
+- [`docs/api.md`](docs/api.md) — API reference (CLI, modules, MCP tools)
 - [`samples/installation-guide.md`](samples/installation-guide.md) — sample input
+
+## Citation
+
+If you use ChunkFlow in your research, please cite it (see
+[`CITATION.cff`](CITATION.cff)).
+
+## License
+
+Distributed under the Apache License, Version 2.0. See [`LICENSE`](LICENSE).

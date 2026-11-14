@@ -2,10 +2,13 @@
 
 import argparse
 import os
+
 from dotenv import load_dotenv
+
 load_dotenv()
 
-COLLECTION_NAME = os.environ.get('COLLECTION_NAME', 'chunkflow')
+COLLECTION_NAME = os.environ.get("COLLECTION_NAME", "chunkflow")
+
 
 def main(argv=None) -> None:
     """Parse CLI arguments and dispatch to the matching stage runner.
