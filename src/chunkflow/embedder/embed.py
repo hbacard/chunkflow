@@ -29,7 +29,7 @@ def make_client() -> httpx.Client:
 
 
 def _embed(client: httpx.Client, text: str) -> list[float]:
-    """Embed one batch of texts via the embeddings endpoint.
+    """Embed a single text via the embeddings endpoint.
 
     Parameters
     ----------
@@ -43,16 +43,7 @@ def _embed(client: httpx.Client, text: str) -> list[float]:
     list[float]
         The embedding vector of the input text.
     """
-    resp = client.post(
-        "/v1/embeddings",
-        json={
-            "model": os.environ.get("EMBEDDING_MODEL", DEFAULT_MODEL),
-            "input": text,
-        },
-    )
-    resp.raise_for_status()
-    data = resp.json()["data"]
-    return data[0]["embedding"]
+    return _embed_batch(client, [text])[0]
 
 
 def _embed_batch(client: httpx.Client, texts: list[str]) -> list[list[float]]:

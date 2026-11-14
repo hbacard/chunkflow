@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.1"
-content_hash = "sha256:747e9540b3a2e6ae24aa9d218092d2bad328d791610e71fa75f37e01bec5215f"
+content_hash = "sha256:602437aa1bc9c50ced7255b2434e620e5fb7d69475145d0f1c9e611cc0de64eb"
 
 [[metadata.targets]]
 requires_python = ">=3.12,<3.14"
@@ -408,7 +408,7 @@ files = [
 
 [[package]]
 name = "cyclopts"
-version = "5.4.2"
+version = "5.5.0"
 requires_python = ">=3.11"
 summary = "Intuitive, easy CLIs based on type hints."
 groups = ["default"]
@@ -419,8 +419,8 @@ dependencies = [
     "rich>=13.6.0",
 ]
 files = [
-    {file = "cyclopts-5.4.2-py3-none-any.whl", hash = "sha256:f8a07bf41d14447960fb75d07b564b13faea1b9a7530cb669db08e43134bbff9"},
-    {file = "cyclopts-5.4.2.tar.gz", hash = "sha256:f0374ffae32bba180db7eae1d17a97a1bcd656455a3b7436f2133c4132f7c5b5"},
+    {file = "cyclopts-5.5.0-py3-none-any.whl", hash = "sha256:ddc58a8e2035292ec7b81666ff07c4b32a4118ad4d7ef55593b91a02b6e34754"},
+    {file = "cyclopts-5.5.0.tar.gz", hash = "sha256:995f779ef1cabdae1fd5fd4a92d303dc80a060c11c205137b77fb75bec079237"},
 ]
 
 [[package]]
@@ -863,7 +863,7 @@ name = "iniconfig"
 version = "2.3.1"
 requires_python = ">=3.10"
 summary = "brain-dead simple config-ini parsing"
-groups = ["default", "dev"]
+groups = ["dev"]
 files = [
     {file = "iniconfig-2.3.1-py3-none-any.whl", hash = "sha256:9121e2c1fdb355232495be3194c8dfe87ccc2d5dee45947b78e68f499790d7a7"},
     {file = "iniconfig-2.3.1.tar.gz", hash = "sha256:67f4b9c50da0dedf52af349e7749a80a9057a5031199791b906c3bb3ae878960"},
@@ -1140,7 +1140,7 @@ files = [
 
 [[package]]
 name = "onnxruntime"
-version = "1.31.1"
+version = "1.32.0"
 requires_python = ">=3.11"
 summary = "ONNX Runtime is a runtime accelerator for Machine Learning models"
 groups = ["default"]
@@ -1151,18 +1151,18 @@ dependencies = [
     "protobuf>=4.25.8",
 ]
 files = [
-    {file = "onnxruntime-1.31.1-cp312-cp312-macosx_14_0_arm64.whl", hash = "sha256:96dd2564b10ea7153ad9c207e7cd8e5917cb3ba521e0e0a62ac03486fdc8d56c"},
-    {file = "onnxruntime-1.31.1-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:0b9a492176886992e0e875f06bc0367e333f5fff11711a2d642e18b02f3009cc"},
-    {file = "onnxruntime-1.31.1-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:1f3dea47f2f0e5117c2404cea7d21fd253ae7836a3bf167a501cdfbb2600d536"},
-    {file = "onnxruntime-1.31.1-cp312-cp312-win_amd64.whl", hash = "sha256:ae8a9a351efda685cc59a66226cdefaa37a126c1d66872ca23a2de9425326130"},
-    {file = "onnxruntime-1.31.1-cp312-cp312-win_arm64.whl", hash = "sha256:fe8b9ac1ae8e894e12c47ee82e4f6dfc1835768133687257866469fda80d0bf1"},
-    {file = "onnxruntime-1.31.1-cp313-cp313-macosx_14_0_arm64.whl", hash = "sha256:e4ad067d36e2220218e085d7223283b2ee1bc73d887e811fd14d21cf901a11ee"},
-    {file = "onnxruntime-1.31.1-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:dcaedc50333876f3829ab966b242147f0e548229e29c36fe44622ecf748c25ee"},
-    {file = "onnxruntime-1.31.1-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:74a6a52994616c4d18b33db1e13c226333a70a6ba07480a5cab9c2a50dff1430"},
-    {file = "onnxruntime-1.31.1-cp313-cp313-win_amd64.whl", hash = "sha256:0558f29d5f6ac09957390c9c5495931485ee8ae7f0ce781ccee86a0ae5c2348b"},
-    {file = "onnxruntime-1.31.1-cp313-cp313-win_arm64.whl", hash = "sha256:075147c2e2430b4b29c436bffa78537b902a6ed58ed66f99ae3c6795e2081cb5"},
-    {file = "onnxruntime-1.31.1-cp313-cp313t-manylinux_2_28_aarch64.whl", hash = "sha256:ae0987aedb9ae589f3395615c58b22aad2eae6657b14508cec70c24b367cfad1"},
-    {file = "onnxruntime-1.31.1-cp313-cp313t-manylinux_2_28_x86_64.whl", hash = "sha256:6711108bcddf8b401145fb31ac93776b8ca6e7e7e56acdfa9d478575b8df9a2f"},
+    {file = "onnxruntime-1.32.0-cp312-cp312-macosx_14_0_arm64.whl", hash = "sha256:d52510bbbcc880c13b826f7d75cdf33ac5cf0bb864d960000fc29ce73f0cb83e"},
+    {file = "onnxruntime-1.32.0-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:e36c187006e7a7c8b8d6d57f1a209dd63f52430dca6c282b177718ad6b841054"},
+    {file = "onnxruntime-1.32.0-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:99e1074c4b2197accd5073052a465361be17b89c093b8ffb6e6bd8f986c52df8"},
+    {file = "onnxruntime-1.32.0-cp312-cp312-win_amd64.whl", hash = "sha256:efe7456952c243a05a53d5b8732953625144642c2f3989094277f6217f0c0c40"},
+    {file = "onnxruntime-1.32.0-cp312-cp312-win_arm64.whl", hash = "sha256:64d394c69d561af3efd4d4f49dcac8f11d0ce135a20701c16d53b74056cd4cf8"},
+    {file = "onnxruntime-1.32.0-cp313-cp313-macosx_14_0_arm64.whl", hash = "sha256:27bf5dad46355a8a435c9c4e1556464d99ca834ea44e0f452909712068b8821b"},
+    {file = "onnxruntime-1.32.0-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:54d02baff2df38777b4c3cc7af326406fe8b8a48f54720f4c446d2d327920a79"},
+    {file = "onnxruntime-1.32.0-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:02ea12a28c069ea8510093d95a7f6ff8126bfd9fc5c0d3381c03b80fb2b424ba"},
+    {file = "onnxruntime-1.32.0-cp313-cp313-win_amd64.whl", hash = "sha256:c7f9aa98036ba2a47aa041a4a8c6d0a1f7bfe1bde44c131dcd15ce334f2f148d"},
+    {file = "onnxruntime-1.32.0-cp313-cp313-win_arm64.whl", hash = "sha256:29e4b0fdd3bea834ace358bd8c48641266ec327f730363ab0ab5d0ca574d38fe"},
+    {file = "onnxruntime-1.32.0-cp313-cp313t-manylinux_2_28_aarch64.whl", hash = "sha256:b01314ab8aa8176919818b19b899cd1cd72b5e4fc33e1127396f043206b6ceed"},
+    {file = "onnxruntime-1.32.0-cp313-cp313t-manylinux_2_28_x86_64.whl", hash = "sha256:926b6a87ffdcef56805b213807c28b97ae53763a630795baee1dfb420c2a5b68"},
 ]
 
 [[package]]
@@ -1221,6 +1221,7 @@ version = "13.0.0"
 requires_python = ">=3.11"
 summary = "Python Imaging Library (fork)"
 groups = ["default"]
+marker = "python_full_version >= \"3.10\" and python_full_version < \"3.14.0\""
 files = [
     {file = "pillow-13.0.0-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:67c8d44ad89fa7eb88de5d6ef6199b1e03dd24974f85a67639fc8badb801fe79"},
     {file = "pillow-13.0.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:fc481f742ccda20e9ed760b8f978dff50f2a4e9bc253ac167fb0a05b0783ef52"},
@@ -1267,7 +1268,7 @@ name = "pluggy"
 version = "1.7.0"
 requires_python = ">=3.10"
 summary = "plugin and hook calling mechanisms for python"
-groups = ["default", "dev"]
+groups = ["dev"]
 files = [
     {file = "pluggy-1.7.0-py3-none-any.whl", hash = "sha256:7dd7b0d8832ba3cb632c306926ded123429211b83641b35dc5c41ad2d34f9bec"},
     {file = "pluggy-1.7.0.tar.gz", hash = "sha256:d1eaa46ebb595891b860ab086b4d09c8588af65ebd4361b8e8f4bb8920b90ba8"},
@@ -1463,7 +1464,7 @@ files = [
 
 [[package]]
 name = "pydantic-settings"
-version = "2.16.2"
+version = "2.16.3"
 requires_python = ">=3.11"
 summary = "Settings management using Pydantic"
 groups = ["default"]
@@ -1474,8 +1475,8 @@ dependencies = [
     "typing-inspection>=0.4.0",
 ]
 files = [
-    {file = "pydantic_settings-2.16.2-py3-none-any.whl", hash = "sha256:8d523e5c129b097686bde019bd6109bff53f4c8c3f63f1ddf9933ffa42e5ab4f"},
-    {file = "pydantic_settings-2.16.2.tar.gz", hash = "sha256:3dc08ffabed2bbd5dc2dd55ead7b78b4e4c5cd776aecd04310db5f1224caaf46"},
+    {file = "pydantic_settings-2.16.3-py3-none-any.whl", hash = "sha256:d1db16a2d34006323a1b42c0640898da58adfbad7ec30baaa9e2b18aafc08999"},
+    {file = "pydantic_settings-2.16.3.tar.gz", hash = "sha256:10e36f616623ebb586c05ca3d3cd22927146869db413d4f14c20c514442a1337"},
 ]
 
 [[package]]
@@ -1613,7 +1614,7 @@ name = "pytest"
 version = "9.2.0"
 requires_python = ">=3.10"
 summary = "pytest: simple powerful testing with Python"
-groups = ["default", "dev"]
+groups = ["dev"]
 dependencies = [
     "colorama>=0.4; sys_platform == \"win32\"",
     "exceptiongroup>=1; python_version < \"3.11\"",

@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-COLLECTION_NAME = os.environ.get("COLLECTION_NAME", "chunkflow")
+COLLECTION_NAME = os.environ.get("COLLECTION_NAME", "docs_rag")
 
 
 def main(argv=None) -> None:
@@ -50,7 +50,9 @@ def main(argv=None) -> None:
         "--collection", default=COLLECTION_NAME, help="Qdrant collection name"
     )
     p_ingest.add_argument(
-        "--url", default="http://localhost:6333", help="Qdrant REST URL"
+        "--url",
+        default=os.environ.get("QDRANT_URL", "http://localhost:6333"),
+        help="Qdrant REST URL",
     )
     p_ingest.set_defaults(run=_run_ingest)
 
