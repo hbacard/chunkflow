@@ -19,3 +19,5 @@ blob
 .coverage.*
 coverage.xml
 htmlcov/
+.docs_implementation
+*-report.md
