@@ -1,11 +1,11 @@
 # EVERSE Scan Report
 
-**Repository**: chunkflow
-**Date**: 2026-11-13
-**Language(s) detected**: Python
-**Software tier**: Tool/Library (tier 2)
-**Lifecycle stage**: Active dev
-**AI Intensity Profile**: Not found
+- **Repository**: chunkflow
+- **Date**: 2026-11-15
+- **Language(s) detected**: Python
+- **Software tier**: Infrastructure (tier 3)
+- **Lifecycle stage**: Active dev
+- **AI Intensity Profile**: Not found
 
 ---
 
@@ -13,77 +13,80 @@
 
 ### Strengths
 - **README**: README found: README.md, quality score 4/4
+- **LICENSE**: License file found: LICENSE (Apache-2.0)
+- **CITATION.cff**: CITATION.cff found with all required fields
+- **codemeta.json**: codemeta.json valid with all required fields
 - **Structure**: Well-structured project with src/, tests/, and docs/
-- **Version control**: Git repository (19 commits, 2 authors, 0 tags)
+- **Version control**: Git repository with good .gitignore and 1 release(s)
 - **Tests**: Tests found (3 files, framework: pytest)
 - **Documentation**: Good documentation coverage
+- **CI/CD**: CI/CD well configured (GitHub Actions)
 - **Packaging**: Packaging well configured (pyproject.toml, Dockerfile)
 - **Static analysis**: Static analysis tools configured (ruff)
-- **Reproducible environments**: Reproducible environment configured (uv.lock, Dockerfile, docker-compose.yml)
+- **Security**: Good security practices
+- **Reproducible environments**: Reproducible environment configured (uv.lock, pdm.lock, Dockerfile, docker-compose.yml)
+- **Code review**: Good code review practices
+- **Software identifiers**: Software identifiers present
+- **Releasing**: Good releasing practices (1 tags, semver, changelog)
+- **Readable code**: Code formatting configured (ruff)
+- **Authorship**: Authorship information found
+- **ORCID**: ORCID references found in: CITATION.cff, codemeta.json, AUTHORS
+- **Dependency management**: Dependency management configured: Dependabot
 - **Containerization**: Container support: Dockerfile, docker-compose
+- **API documentation**: API documentation found: docs/api.md
+- **Changelog**: Changelog found: CHANGELOG.md
+- **Contribution guidelines**: Contribution guide found: CONTRIBUTING.md
+- **Code of conduct**: Code of conduct found: CODE_OF_CONDUCT.md
+- **Issue templates**: Issue templates found: 3
+- **Secret management**: Good secret management practices (2 indicators)
+- **Data management plan**: Data management plan found: DMP.md
+- **Reproducibility checklist**: Reproducibility checklist found: REPRODUCIBILITY.md
+- **Archiving**: Archiving indicators found: Zenodo, Zenodo DOI in README
 - **Future proofing**: Good future proofing (3/3 indicators)
+- **Software sustainability plan**: Sustainability plan found: SUSTAINABILITY.md
 
 ### Weaknesses
-- **LICENSE**: License mentioned in pyproject.toml but no dedicated LICENSE file
-- **CITATION.cff**: No CITATION.cff found
-- **codemeta.json**: No codemeta.json found
-- **CI/CD**: No CI/CD configuration found
-- **Security**: No security tools or policies found
-- **Code review**: No code review practices found
-- **Software identifiers**: No software identifiers (DOI, Zenodo) found
-- **Releasing**: No releasing practices found
-- **Readable code**: No code formatting configuration found
-- **Authorship**: No authorship metadata found (CITATION.cff, codemeta.json, or AUTHORS)
-- **ORCID**: No ORCID references found in metadata files
-- **Dependency management**: No dependency management tool found (Dependabot, Renovate)
-- **API documentation**: No API documentation found (OpenAPI/Swagger or docs/api)
-- **Changelog**: No changelog file found
-- **Contribution guidelines**: No CONTRIBUTING.md found
-- **Code of conduct**: No CODE_OF_CONDUCT.md found
-- **Issue templates**: No issue templates found
-- **Secret management**: Partial secret management (1 indicator(s))
-- **Data management plan**: No data management plan found
-- **Reproducibility checklist**: No reproducibility checklist found
-- **Archiving**: No software archiving indicators found
-- **Software sustainability plan**: No sustainability plan found
+- **Environmental sustainability**: Environmental practices: 1 indicator(s)
 
 ### Overall Compliance
 
 | Check | Status |
 |-------|--------|
 | README | ✅ Pass |
-| LICENSE | ⚠️ Warn |
-| CITATION.cff | ❌ Fail |
-| codemeta.json | ❌ Fail |
+| LICENSE | ✅ Pass |
+| CITATION.cff | ✅ Pass |
+| codemeta.json | ✅ Pass |
 | Structure | ✅ Pass |
 | Version control | ✅ Pass |
 | Tests | ✅ Pass |
 | Documentation | ✅ Pass |
-| CI/CD | ❌ Fail |
+| CI/CD | ✅ Pass |
 | Packaging | ✅ Pass |
 | Static analysis | ✅ Pass |
-| Security | ⚠️ Warn |
+| Security | ✅ Pass |
 | Reproducible environments | ✅ Pass |
-| Code review | ⚠️ Warn |
-| Software identifiers | ⚠️ Warn |
-| Releasing | ⚠️ Warn |
-| Readable code | ⚠️ Warn |
-| Authorship | ⚠️ Warn |
-| ORCID | ⚠️ Warn |
-| Dependency management | ⚠️ Warn |
+| Code review | ✅ Pass |
+| Software identifiers | ✅ Pass |
+| Releasing | ✅ Pass |
+| Readable code | ✅ Pass |
+| Authorship | ✅ Pass |
+| ORCID | ✅ Pass |
+| Dependency management | ✅ Pass |
 | Containerization | ✅ Pass |
 | Computational workflows | ⬜ N/A |
-| API documentation | ⚠️ Warn |
-| Changelog | ⚠️ Warn |
-| Contribution guidelines | ⚠️ Warn |
-| Code of conduct | ⚠️ Warn |
-| Issue templates | ⚠️ Warn |
-| Secret management | ⚠️ Warn |
-| Data management plan | ⚠️ Warn |
-| Reproducibility checklist | ⚠️ Warn |
-| Archiving | ⚠️ Warn |
+| API documentation | ✅ Pass |
+| Changelog | ✅ Pass |
+| Contribution guidelines | ✅ Pass |
+| Code of conduct | ✅ Pass |
+| Issue templates | ✅ Pass |
+| Secret management | ✅ Pass |
+| Data management plan | ✅ Pass |
+| Reproducibility checklist | ✅ Pass |
+| Archiving | ✅ Pass |
 | Future proofing | ✅ Pass |
-| Software sustainability plan | ⚠️ Warn |
+| Software sustainability plan | ✅ Pass |
+| Environmental sustainability | ⚠️ Warn |
+| Software peer review | ⬜ N/A |
 | Software quality model | ⬜ N/A |
 
 ### Quality Dimensions (RSQKit mapping)
@@ -92,19 +95,19 @@
 
 | Dimension | Score | Checks involved |
 |---|---|---|
-| Reproducibility | ❌ | Packaging, Tests, CI/CD |
-| Maintainability | ⚠️ | Structure, Documentation, Readable code |
-| Findability | ❌ | CITATION.cff, codemeta.json, Software identifiers |
-| Trustworthiness | ❌ | Tests, CI/CD, Version control, Security |
-| Reusability | ⚠️ | LICENSE, README, Documentation |
+| Reproducibility | ✅ | Packaging, Tests, CI/CD |
+| Maintainability | ✅ | Structure, Documentation, Readable code |
+| Findability | ✅ | CITATION.cff, codemeta.json, Software identifiers |
+| Trustworthiness | ✅ | Tests, CI/CD, Version control, Security |
+| Reusability | ✅ | LICENSE, README, Documentation |
 
 ### Detected Software Tier
-**Tier**: Tool/Library (tier 2)
-**Justification**: Packaging=yes, 2 author(s), tests=yes, source files=18
+**Tier**: Infrastructure (tier 3)
+**Justification**: Multi-package or complex CI, Docker=yes, docs=extensive, contributors=3, releases=1
 
 ### Detected Lifecycle Stage
 **Stage**: Active dev
-**Justification**: Regular commits (19 in last 3 months, 19 total), active development
+**Justification**: Regular commits (23 in last 3 months, 23 total), active development
 
 ### Non-evaluated Tasks
 
@@ -127,18 +130,13 @@
 - No critical risks detected
 
 ### Quick Wins (low effort, high impact)
-1. Create a CITATION.cff to enable proper citation of your software (cf. https://everse.software/RSQKit/citing_software) — **impact: high**
-1. Create a codemeta.json with software metadata (cf. https://everse.software/RSQKit/complete_software_metadata_codemeta) — **impact: high**
+1. Improve this check (cf. https://everse.software/RSQKit/improving_environmental_sustainability) — **impact: moderate**
 
 ### Medium Term (moderate effort, moderate impact)
-1. Add a dedicated LICENSE file at the repository root (cf. https://everse.software/RSQKit/licensing_software)
-1. Add Dependabot for dependency vulnerability scanning (cf. https://everse.software/RSQKit/research_software_security)
-1. Add a PR template (.github/pull_request_template.md) (cf. https://everse.software/RSQKit/code_review)
-1. Add .zenodo.json to control Zenodo deposition metadata (cf. https://everse.software/RSQKit/software_identifiers)
-1. Create version tags (git tag v0.1.0) (cf. https://everse.software/RSQKit/releasing_software)
+- Nothing to report
 
 ### Long Term (high effort, structural impact)
-1. Create a GitHub Actions workflow for automated testing (cf. https://everse.software/RSQKit/ci_cd)
+- Nothing to report
 
 ---
 
@@ -153,49 +151,35 @@
 - Installation instructions present
 - Usage examples present
 - License mentioned
-- No badges found
-
-**Recommendations**:
-- Consider adding badges (CI, license, coverage)
+- Badges present
 
 ---
 
 ### 3.2 LICENSE
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/licensing_software
 
 **Findings**:
-- Referenced in: pyproject.toml
-- No dedicated LICENSE file at root
-
-**Recommendations**:
-- Add a dedicated LICENSE file at the repository root
+- SPDX identifier: Apache-2.0
+- File: LICENSE
 
 ---
 
 ### 3.3 CITATION.cff
-**Status**: ❌ Fail
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/citing_software
 
 **Findings**:
-- CITATION.cff not present at repository root
-
-**Recommendations**:
-- Create a CITATION.cff to enable proper citation of your software
-- Fields can be pre-filled from git log (authors) and README (title)
+- Found fields: title, authors, date-released, version
 
 ---
 
 ### 3.4 codemeta.json
-**Status**: ❌ Fail
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/complete_software_metadata_codemeta
 
 **Findings**:
-- codemeta.json not present at repository root
-
-**Recommendations**:
-- Create a codemeta.json with software metadata
-- Can be generated from CITATION.cff and packaging files
+- All required fields present
 
 ---
 
@@ -204,7 +188,7 @@
 **RSQKit**: https://everse.software/RSQKit/software_project_structure
 
 **Findings**:
-- Top-level directories: .pdm-build, docs, markdowns_support, mcp, samples, scripts, src, tests
+- Top-level directories: .github, .pdm-build, docs, mcp, samples, scripts, src, tests
 - src/ layout: yes
 - tests/ directory: yes
 - docs/ directory: yes
@@ -216,13 +200,10 @@
 **RSQKit**: https://everse.software/RSQKit/using_version_control
 
 **Findings**:
-- Commits: 19
-- Authors: 2
-- Tags/releases: 0
+- Commits: 23
+- Authors: 3
+- Tags/releases: 1
 - .gitignore: present (4/7 common entries)
-
-**Recommendations**:
-- Create tags for version releases (git tag v0.1.0)
 
 ---
 
@@ -234,10 +215,7 @@
 - Test files found: 3
 - Test framework: pytest
 - Tests directory: yes
-- Coverage tool: none
-
-**Recommendations**:
-- Add coverage measurement (pytest-cov for Python)
+- Coverage tool: coverage/pytest-cov
 
 ---
 
@@ -246,10 +224,10 @@
 **RSQKit**: https://everse.software/RSQKit/software_documentation
 
 **Findings**:
-- docs/ directory: yes (2 files)
+- docs/ directory: yes (3 files)
 - Doc site configs: none
 - Docstrings found: 82
-- README: present (3473 chars)
+- README: present (4438 chars)
 
 **Recommendations**:
 - Set up Sphinx or MkDocs for documentation generation
@@ -257,14 +235,15 @@
 ---
 
 ### 3.9 CI/CD
-**Status**: ❌ Fail
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/ci_cd
 
 **Findings**:
-- No .github/workflows/, .gitlab-ci.yml, Jenkinsfile, or other CI config found
-
-**Recommendations**:
-- Create a GitHub Actions workflow for automated testing
+- CI system: GitHub Actions
+- Test job: yes
+- Lint job: yes
+- Matrix builds: yes
+- Dependabot: yes
 
 ---
 
@@ -288,19 +267,14 @@
 ---
 
 ### 3.12 Security
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/research_software_security
 
 **Findings**:
 - Secrets found: 0
-- Dependabot: no
-- CODEOWNERS: no
-- Security policy: no
-
-**Recommendations**:
-- Add Dependabot for dependency vulnerability scanning
-- Add a CODEOWNERS file for review accountability
-- Add a SECURITY.md with vulnerability reporting instructions
+- Dependabot: yes
+- CODEOWNERS: yes
+- Security policy: yes
 
 ---
 
@@ -309,107 +283,85 @@
 **RSQKit**: https://everse.software/RSQKit/reproducible_software_environments
 
 **Findings**:
-- Lockfiles: uv.lock
+- Lockfiles: uv.lock, pdm.lock
 - Container files: Dockerfile, docker-compose.yml
 - Nix: no
 
 ---
 
 ### 3.14 Code review
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/code_review
 
 **Findings**:
-- PR template: no
-- CODEOWNERS: no
-- CONTRIBUTING.md: no
-- Issue templates: no
-
-**Recommendations**:
-- Add a PR template (.github/pull_request_template.md)
-- Add a CODEOWNERS file for review accountability
-- Add a CONTRIBUTING.md with contribution guidelines
+- PR template: yes
+- CODEOWNERS: yes
+- CONTRIBUTING.md: yes
+- Issue templates: yes
 
 ---
 
 ### 3.15 Software identifiers
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/software_identifiers
 
 **Findings**:
-- .zenodo.json: no
-- DOI in README: no
-- DOI in CITATION.cff: no
-
-**Recommendations**:
-- Add .zenodo.json to control Zenodo deposition metadata
-- Add a DOI badge to README (from Zenodo after first release)
+- .zenodo.json: yes
+- DOI in README: yes
+- DOI in CITATION.cff: yes
 
 ---
 
 ### 3.16 Releasing
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/releasing_software
 
 **Findings**:
-- Git tags: 0 (none)
-- Semantic versioning: no
-- CHANGELOG: no
+- Git tags: 1 (v0.1.0)
+- Semantic versioning: yes
+- CHANGELOG: yes
 - Release template: no
-
-**Recommendations**:
-- Create version tags (git tag v0.1.0)
-- Add a CHANGELOG.md to track release changes
 
 ---
 
 ### 3.17 Readable code
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/writing_readable_code
 
 **Findings**:
-- Formatters configured: none
-- .editorconfig: no
-
-**Recommendations**:
-- Configure ruff format or black
-- Add an .editorconfig for consistent editor settings
+- Formatters configured: ruff
+- .editorconfig: yes
 
 ---
 
 ### 3.18 Authorship
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/credit_recognition_research_software
 
 **Findings**:
-
-**Recommendations**:
-- Add authorship info to CITATION.cff or codemeta.json
+- CITATION.cff found (authors field)
+- codemeta.json found (author field)
+- AUTHORS file found
 
 ---
 
 ### 3.19 ORCID
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/software_metadata
 
 **Findings**:
-- ORCID pattern not found in any metadata file
-
-**Recommendations**:
-- Add ORCID to CITATION.cff authors or codemeta.json
+- ORCID found in CITATION.cff
+- ORCID found in codemeta.json
+- ORCID found in AUTHORS
 
 ---
 
 ### 3.20 Dependency management
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/software_maintenance
 
 **Findings**:
-- No dependabot.yml, renovate.json, or .renovaterc found
-
-**Recommendations**:
-- Add Dependabot: .github/dependabot.yml
-- Or add Renovate: renovate.json
+- .github/dependabot.yml found
 
 ---
 
@@ -433,109 +385,83 @@
 ---
 
 ### 3.23 API documentation
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/software_documentation
 
 **Findings**:
-- No openapi.yaml/json, swagger.yaml/json, or docs/api.md found
-
-**Recommendations**:
-- Add API documentation (OpenAPI spec or docs/api.md)
+- API docs: docs/api.md
 
 ---
 
 ### 3.24 Changelog
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/releasing_software
 
 **Findings**:
-- No CHANGELOG.md, CHANGES.md, or similar found
-
-**Recommendations**:
-- Add a CHANGELOG.md to track version history
+- File: CHANGELOG.md
+- Has entries: True
 
 ---
 
 ### 3.25 Contribution guidelines
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 
 **Findings**:
-- No CONTRIBUTING.md or .github/CONTRIBUTING.md found
-
-**Recommendations**:
-- Add CONTRIBUTING.md with guidelines for contributors
+- File: CONTRIBUTING.md
 
 ---
 
 ### 3.26 Code of conduct
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 
 **Findings**:
-- No CODE_OF_CONDUCT.md found
-
-**Recommendations**:
-- Add CODE_OF_CONDUCT.md (see Contributor Covenant)
+- File: CODE_OF_CONDUCT.md
 
 ---
 
 ### 3.27 Issue templates
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 
 **Findings**:
-- No .github/ISSUE_TEMPLATE/ directory or templates
-
-**Recommendations**:
-- Add issue templates in .github/ISSUE_TEMPLATE/
+- Templates: config.yml, bug_report.yml, feature_request.yml
 
 ---
 
 ### 3.28 Secret management
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/research_software_security
 
 **Findings**:
 - .env in .gitignore
-
-**Recommendations**:
-- Add .env to .gitignore
-- Add gitleaks to pre-commit hooks
+- Secret scanning in pre-commit hooks
 
 ---
 
 ### 3.29 Data management plan
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/software_management_planning
 
 **Findings**:
-- No DMP.md or DATA_MANAGEMENT_PLAN.md found
-
-**Recommendations**:
-- Add a data management plan (DMP.md) if your software uses/produces data
+- File: DMP.md
 
 ---
 
 ### 3.30 Reproducibility checklist
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/reproducible_software_environments
 
 **Findings**:
-- No REPRODUCIBILITY.md or CHECKLIST.md found
-
-**Recommendations**:
-- Add a reproducibility checklist documenting how to reproduce results
+- File: REPRODUCIBILITY.md
 
 ---
 
 ### 3.31 Archiving
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/archiving_software
 
 **Findings**:
-- No .zenodo.json, no Zenodo DOI in README, no Software Heritage reference
-
-**Recommendations**:
-- Create .zenodo.json
-- Archive on Zenodo after first release
+- .zenodo.json found
+- Zenodo/DOI reference in README
 
 ---
 
@@ -551,20 +477,49 @@
 ---
 
 ### 3.33 Software sustainability plan
-**Status**: ⚠️ Warn
+**Status**: ✅ Pass
 **RSQKit**: https://everse.software/RSQKit/software_maintenance
 
 **Findings**:
-- No SUSTAINABILITY.md or similar found
-
-**Recommendations**:
-- Add a sustainability plan (SUSTAINABILITY.md)
+- File: SUSTAINABILITY.md
 
 ---
 
-### 3.34 Software quality model
+### 3.34 Environmental sustainability
+**Status**: ⚠️ Warn
+**RSQKit**: https://everse.software/RSQKit/improving_environmental_sustainability
+
+**Findings**:
+- CI caching in ci.yml
+
+---
+
+### 3.35 Software peer review
+**Status**: ⬜ N/A
+**RSQKit**: https://everse.software/RSQKit/publishing_software
+
+**Findings**:
+- No JOSS paper, rOpenSci badge, or peer review reference
+
+---
+
+### 3.36 Software quality model
 **Status**: ⬜ N/A
 **RSQKit**: https://everse.software/RSQKit/fair_rs
 
 **Findings**:
 - No QUALITY.md or quality model references
+
+---
+
+## 4. AI Usage Determination
+
+**Profile**: Not found
+
+> No AI intensity profile (`ai-intensity.yaml`) found in this repository.
+>
+> The RSQKit AI spectrum is a **self-assessment framework** — it cannot be
+> determined by scanning repository files. To determine your AI intensity,
+> run the **AI Intensity Q&A skill**.
+>
+> See: https://everse.software/RSQKit/spectrum_of_intensity_of_ai_usage

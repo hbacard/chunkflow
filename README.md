@@ -4,6 +4,9 @@
 [![Version](https://img.shields.io/github/v/tag/hbacard/chunkflow)](https://github.com/hbacard/chunkflow/tags)
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache--2.0-yellow.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue.svg)](pyproject.toml)
+<!-- TODO: replace XXXXXXX with the real Zenodo DOI after the first release
+     is deposited (see SUSTAINABILITY.md → Releasing & archiving). -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
 
 A 3-stage parent-child chunking pipeline for Markdown/PDF documents, backed by
 Qdrant hybrid search.

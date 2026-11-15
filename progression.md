@@ -48,3 +48,20 @@ Tracking the implementation of the milestones defined in `milestone.md`
 - `pdm run ruff format --check .` → 35 files already formatted.
 - `pdm run python -m pytest` → 10 passed, 3 skipped, coverage 64% (floor 60).
 - JSON metadata validated; `CITATION.cff` parses as YAML.
+
+## Follow-up (2026-11-15) — re-scan warnings
+Re-ran the EVERSE scan (36 checks); it now reports all ✅ except three ⚠️
+warnings and the self-assessed AI-intensity profile (skipped by decision).
+
+- **codemeta.json** ⚠️ → added `softwareVersion` (CodeMeta 2.0 field the scan
+  checks), alongside the existing `version`.
+- **Software identifiers** ⚠️ → added placeholder Zenodo DOI to README badge
+  and `CITATION.cff` (`doi: 10.5281/zenodo.XXXXXXX`) + documented the
+  Zenodo release/archive procedure in `SUSTAINABILITY.md`. Real DOI must be
+  filled in after the first Zenodo deposit.
+- **Environmental sustainability** ⚠️ (1 indicator) → documented energy
+  practices in `SUSTAINABILITY.md` (container resource limits, efficient CI,
+  small embedder) and added CI job timeouts (`ci.yml`).
+- Validation: `codemeta.json` parses as JSON (`json.load`); `CITATION.cff`
+  and `ci.yml` parse as YAML; DOI pattern present in README + CITATION.cff.
+- Skipped: `ai-intensity.yaml` (self-assessment, per decision).
