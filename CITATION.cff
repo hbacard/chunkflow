@@ -14,6 +14,9 @@ keywords:
   - PDF
 license: Apache-2.0
 version: "0.1.0"
+# TODO: replace with the real Zenodo DOI after the first release is deposited
+# (see SUSTAINABILITY.md → Releasing & archiving).
+doi: "10.5281/zenodo.XXXXXXX"
 date-released: "2026-11-14"
 repository-code: "https://github.com/hbacard/chunkflow"
 authors:

@@ -5,6 +5,7 @@
   "name": "ChunkFlow",
   "description": "A 3-stage parent-child chunking pipeline for Markdown/PDF documents with an ingestion module to a Qdrant vector database (hybrid dense + BM25 retrieval).",
   "version": "0.1.0",
+  "softwareVersion": "0.1.0",
   "license": "https://spdx.org/licenses/Apache-2.0",
   "codeRepository": "https://github.com/hbacard/chunkflow",
   "dateCreated": "2026-10-23",

@@ -7,8 +7,10 @@ shared data model, and the MCP tools.
 ## Installation
 
 ```bash
-pdm install          # Python >=3.12,<3.14
-docker compose up -d # Qdrant on localhost:6333
+pdm install                  # Python >=3.12,<3.14
+docker compose up -d qdrant  # Qdrant on localhost:6333 (shared by CLI & MCP)
+# Optional: full stack (Qdrant + MCP server) with:
+docker compose up -d --build
 ```
 
 ## Environment variables
