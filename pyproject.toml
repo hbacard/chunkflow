@@ -3,7 +3,7 @@ name = "ChunkFlow"
 version = "0.1.0"
 description = "A chunking pipeline for Markdown/PDF documents with an ingestion module to  Qdrant vector database"
 authors = [
-    {name = "Hugo Bacard",email = "hbacard@pm.me"},
+    {name = "Hugo Bacard",email = "hugo.bacard@ijclab.in2p3.fr"},
 ]
 dependencies = [
     "markdown-it-py>=4.2.0",
