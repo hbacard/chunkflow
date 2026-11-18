@@ -176,6 +176,27 @@ def _parse_pdf(path: Path) -> list[Section]:
         Sections ordered as they appear, with page numbers.
     """
     doc = pymupdf.open(path)
+    try:
+        return _parse_pdf_blocks(doc, path)
+    finally:
+        doc.close()
+
+
+def _parse_pdf_blocks(doc: pymupdf.Document, path: Path) -> list[Section]:
+    """Parse an opened PDF document into sections using font size to detect headings.
+
+    Parameters
+    ----------
+    doc : pymupdf.Document
+        Open PDF document (closed by the caller).
+    path : Path
+        Original path used for ``source_file`` metadata.
+
+    Returns
+    -------
+    list[Section]
+        Sections ordered as they appear, with page numbers.
+    """
     n_pages = doc.page_count
     raw: list[tuple[int, float, str]] = []
     for page in doc:
@@ -188,7 +209,7 @@ def _parse_pdf(path: Path) -> list[Section]:
                 continue
             size = max(s["size"] for l in b["lines"] for s in l["spans"])
             raw.append((page.number, size, text))
-    doc.close()
+
     if not raw:
         return []
 

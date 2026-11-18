@@ -1,7 +1,12 @@
 """Shared data model and record builders for the chunk pipeline."""
 
+import hashlib
 from dataclasses import dataclass
-from uuid import uuid4
+
+
+def _stable_id(*parts: str) -> str:
+    # deterministic id so re-ingesting the same doc upserts instead of duplicating
+    return hashlib.sha1("|".join(parts).encode("utf-8")).hexdigest()
 
 
 @dataclass
@@ -48,7 +53,13 @@ def parent_record(
         Parent chunk record with a fresh id and ``chunk_type="parent"``.
     """
     return {
-        "id": str(uuid4()),
+        "id": _stable_id(
+            "parent",
+            section.source_file,
+            section.heading_path,
+            str(section.page_number),
+            text,
+        ),
         "text": text,
         "chunk_type": "parent",
         "source_file": section.source_file,
@@ -80,7 +91,7 @@ def child_record(parent: dict, text: str, child_index: int, token_count: int) ->
         Child chunk record inheriting the parent's metadata with ``chunk_type="child"``.
     """
     return {
-        "id": str(uuid4()),
+        "id": _stable_id("child", parent["id"], str(child_index), text),
         "text": text,
         "chunk_type": "child",
         "source_file": parent["source_file"],

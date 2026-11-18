@@ -40,6 +40,8 @@ async def qdrant_store(
     dim = _dim()
     await _ensure_collection(qdrant, COLLECTION, dim)
 
+    # differs from the CLI pipeline: stores the whole text as one parent/child pair,
+    # no token-window chunking - fine for short notes, limit input length for long text
     parent_id = str(uuid.uuid4())
     child_id = str(uuid.uuid4())
 
@@ -98,13 +100,17 @@ async def qdrant_find(
         return []
 
     query_vector = await asyncio.to_thread(_embed, embedder, query)
-    results = await hybrid_query(qdrant, COLLECTION, query, query_vector, top_k=limit)
-
-    if source:
-        results = [r for r in results if r.get("source") == source]
+    results = await hybrid_query(
+        qdrant, COLLECTION, query, query_vector, top_k=limit, source=source
+    )
     return results[:limit]
 
 
 if __name__ == "__main__":
     transport = "streamable-http"
-    mcp.run(transport=transport, port=8001, host="0.0.0.0")
+    # default 0.0.0.0 keeps the documented LAN setup; bind MCP_HOST=127.0.0.1 to restrict.
+    # shortcut: no auth on this server - LAN clients can read all docs and insert text;
+    # add a token header check before exposing beyond a trusted network.
+    port = int(os.environ.get("MCP_PORT", "8001"))
+    host = os.environ.get("MCP_HOST", "0.0.0.0")
+    mcp.run(transport=transport, port=port, host=host)

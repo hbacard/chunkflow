@@ -57,13 +57,20 @@ async def _ensure_collection(
         Dense vector dimension.
     """
     if not await client.collection_exists(collection):
-        await client.create_collection(
-            collection,
-            vectors_config={
-                "dense": models.VectorParams(size=dim, distance=models.Distance.COSINE)
-            },
-            sparse_vectors_config={"sparse": models.SparseVectorParams()},
-        )
+        try:
+            await client.create_collection(
+                collection,
+                vectors_config={
+                    "dense": models.VectorParams(
+                        size=dim, distance=models.Distance.COSINE
+                    )
+                },
+                sparse_vectors_config={"sparse": models.SparseVectorParams()},
+            )
+        except Exception:
+            # another concurrent caller created it in between; fine if it now exists
+            if not await client.collection_exists(collection):
+                raise
 
 
 def _points(records: list[dict], dim: int) -> list[models.PointStruct]:

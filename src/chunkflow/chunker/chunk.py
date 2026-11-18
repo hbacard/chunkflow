@@ -113,6 +113,8 @@ def _split_sentences(text: str) -> list[str]:
     buf_tokens = 0
     for sentence in sentences:
         n = len(_ENC.encode(sentence))
+        # shortcut: a single sentence longer than CHILD_TOKENS is kept whole (chunk
+        # exceeds the budget); hard-split it when over-budget run-ons matter
         if buf and buf_tokens + n > CHILD_TOKENS:
             chunks.append(" ".join(buf))
             buf = [buf[-1]]
