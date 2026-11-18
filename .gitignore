@@ -19,3 +19,7 @@ blob
 .coverage.*
 coverage.xml
 htmlcov/
+.docs*
+*-report.md
+milestone.md
+progression.md
