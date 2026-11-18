@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-18
+
+### Added
+- `aidecl.yaml` — AI declaration for the OpenCode coding agent.
+- Locked dependency files (`pdm.lock`, `uv.lock`) now tracked for reproducible
+  installs.
+
+### Changed
+- README reframed around three-stage CLI ingestion and agentic RAG via the MCP
+  server, deployed as a container alongside Qdrant.
+- Email address normalization in `AUTHORS`, `CITATION.cff`, `codemeta.json`.
+
+### Fixed
+- Audit findings: retrieval/ID handling, dependency cleanup, and hardening in
+  the chunker, embedder, ingester, and MCP server.
+
+## [0.2.0] - 2026-11-15
+
 ### Added
 - FAIR metadata: `CITATION.cff`, `codemeta.json`, `.zenodo.json`, `AUTHORS`.
 - Community & governance files: `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`,
@@ -21,7 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - License metadata aligned to Apache-2.0 (SPDX) in `pyproject.toml`; keywords
   and classifiers added.
-- `.gitignore`: `uv.lock` is now intentionally tracked (reproducible installs).
 
 ## [0.1.0] - 2026-11-14
 
@@ -41,5 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   smoke test script `scripts/smoke_test.sh`.
 - Test suite (pytest) covering chunking, embedding and ingestion.
 
-[Unreleased]: https://github.com/hbacard/chunkflow/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/hbacard/chunkflow/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/hbacard/chunkflow/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/hbacard/chunkflow/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/hbacard/chunkflow/releases/tag/v0.1.0

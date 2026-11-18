@@ -13,7 +13,7 @@ keywords:
   - Markdown
   - PDF
 license: Apache-2.0
-version: "0.1.0"
+version: "0.2.1"
 # TODO: replace with the real Zenodo DOI after the first release is deposited
 # (see SUSTAINABILITY.md → Releasing & archiving).
 doi: "10.5281/zenodo.XXXXXXX"
