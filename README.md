@@ -4,6 +4,9 @@
 [![Version](https://img.shields.io/github/v/tag/hbacard/chunkflow)](https://github.com/hbacard/chunkflow/tags)
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache--2.0-yellow.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue.svg)](pyproject.toml)
+<!-- TODO: replace XXXXXXX with the real Zenodo DOI after the first release
+     is deposited (see SUSTAINABILITY.md → Releasing & archiving). -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
 
 A 3-stage parent-child chunking pipeline for Markdown/PDF documents, backed by
 Qdrant hybrid search.
@@ -15,26 +18,45 @@ Qdrant hybrid search.
 Retrieval is hybrid (dense + sparse BM25 with Reciprocal Rank Fusion) over children,
 then parents are fetched by ID — see `chunkflow/ingester/retrieve.py`.
 
-## Setup
+## Requirements
+
+- **Python** >=3.12,<3.14 with [PDM](https://pdm-project.org/)
+- **Docker + Docker Compose** — to run Qdrant
+- (Stage 2 only) an OpenAI-compatible embeddings endpoint (e.g. Ollama) reachable
+  at `EMBEDDING_BASE_URL`
+
+## Install & start the database
+
+Qdrant is the only external dependency and is shared by **both** the CLI and the
+MCP server.
 
 ```bash
-pdm install          # Python >=3.12,<3.14
-docker compose up -d # Qdrant on localhost:6333
+pdm install                  # Python >=3.12,<3.14
+docker compose up -d qdrant  # Qdrant on localhost:6333
 ```
 
-This is the local development install (Qdrant in a container, pipeline run with
-`pdm`). To run the whole stack — including the MCP server — in containers, see
-[Docker](#docker).
+No `.env` is required — Compose falls back to the defaults in
+[Environment variables](#environment-variables). Copy `env.example` to `.env`
+only to override them.
 
-## Docker
+## Use via the CLI
 
-### Run the full stack
+The pipeline runs locally with PDM and talks to the Qdrant container above:
+
+```bash
+chunkflow chunk  --input samples --output chunks.json --url-mapping url_mapping.json
+chunkflow embed  --input chunks.json --output embedded_chunks.json
+chunkflow ingest --input embedded_chunks.json
+```
+
+## Use via the MCP server (optional, Docker)
+
+The MCP server runs in containers on top of Qdrant. One Compose command brings
+up **both** services:
 
 ```bash
 docker compose up -d --build
 ```
-
-This starts two services:
 
 | Service  | Image / build          | Ports                              | Notes                                  |
 |----------|------------------------|------------------------------------|----------------------------------------|
@@ -52,8 +74,10 @@ The MCP server speaks **streamable HTTP** — point your MCP client at
 
 ### Environment
 
+Defaults are baked in; use a `.env` file only to override them:
+
 ```bash
-cp env.example .env   # then edit as needed
+cp env.example .env   # optional, then edit as needed
 ```
 
 Within the compose stack:
@@ -80,15 +104,10 @@ handshake.
 docker build -t chunkflow .
 ```
 
-## Usage
-
-```bash
-chunkflow chunk  --input samples --output chunks.json --url-mapping url_mapping.json
-chunkflow embed  --input chunks.json --output embedded_chunks.json
-chunkflow ingest --input embedded_chunks.json
-```
-
 ## Environment variables
+
+All variables have sensible defaults and can be overridden via environment
+variables or an optional `.env` file (see [Install & start the database](#install--start-the-database)).
 
 | Variable | Default | Used by |
 |---|---|---|
@@ -97,6 +116,11 @@ chunkflow ingest --input embedded_chunks.json
 | `EMBEDDING_DIM` | `768` | ingest |
 | `QDRANT_URL` | `http://localhost:6333` | ingest, MCP server |
 | `COLLECTION_NAME` | `docs_rag` | ingest, MCP server |
+
+> Inside the compose stack, `EMBEDDING_BASE_URL` defaults to
+> `http://host.docker.internal:11434` (to reach your host's Ollama from a
+> container) and `QDRANT_URL` to `http://qdrant:6333` (Docker service-name
+> resolution) — see [Use via the MCP server](#use-via-the-mcp-server-optional-docker).
 
 ## Tests
 

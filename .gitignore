@@ -16,8 +16,13 @@ blob
 
 # Coverage reports
 .coverage
-.coverage.*
+.coverage.*git
 coverage.xml
 htmlcov/
 .docs_implementation
 *-report.md
+.docs*
+*-report.md
+milestone.md
+progression.md
+

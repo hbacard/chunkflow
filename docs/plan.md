@@ -304,7 +304,7 @@ volumes:
   qdrant_data:
 ```
 
-- Start: `docker compose up -d`
+- Start: `docker compose up -d qdrant`
 - Data persists across container restarts via the named volume `qdrant_data`.
 - Async client connects to `http://localhost:6333` (REST) — for gRPC use `localhost:6334`.
 
