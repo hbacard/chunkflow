@@ -5,7 +5,7 @@ sustainability is handled.
 
 ## Maintenance
 
-- **Maintainer(s):** Hugo Bacard (`hbacard@pm.me`).
+- **Maintainer(s):** Hugo Bacard (`hugo.bacard@ijclab.in2p3.fr`).
 - **Versioning:** Semantic Versioning; releases are tagged (e.g. `v0.1.0`) and
   tracked in [`CHANGELOG.md`](CHANGELOG.md).
 - **Dependency upkeep:** Dependabot opens weekly PRs for Python, Docker, and

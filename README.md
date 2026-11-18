@@ -18,6 +18,15 @@ Qdrant hybrid search.
 Retrieval is hybrid (dense + sparse BM25 with Reciprocal Rank Fusion) over children,
 then parents are fetched by ID — see `chunkflow/ingester/retrieve.py`.
 
+ChunkFlow can then be used in two ways, both backed by the same Qdrant
+collection:
+
+- **Ingest documents (CLI):** run the 3-stage pipeline to chunk, embed, and
+  upsert documents into the collection.
+- **Agentic RAG (MCP server):** a second container deployed alongside Qdrant in
+  the same compose stack, exposing MCP tools that let AI agents retrieve and
+  store documents in that same collection.
+
 ## Requirements
 
 - **Python** >=3.12,<3.14 with [PDM](https://pdm-project.org/)
@@ -27,8 +36,8 @@ then parents are fetched by ID — see `chunkflow/ingester/retrieve.py`.
 
 ## Install & start the database
 
-Qdrant is the only external dependency and is shared by **both** the CLI and the
-MCP server.
+Qdrant is the only external dependency and is shared by **both** the ingestion
+CLI and the MCP server.
 
 ```bash
 pdm install                  # Python >=3.12,<3.14
@@ -39,9 +48,10 @@ No `.env` is required — Compose falls back to the defaults in
 [Environment variables](#environment-variables). Copy `env.example` to `.env`
 only to override them.
 
-## Use via the CLI
+## Ingest documents via the CLI (3 stages)
 
-The pipeline runs locally with PDM and talks to the Qdrant container above:
+The pipeline runs locally with PDM and ingests documents into the shared Qdrant
+collection in three stages:
 
 ```bash
 chunkflow chunk  --input samples --output chunks.json --url-mapping url_mapping.json
@@ -49,9 +59,19 @@ chunkflow embed  --input chunks.json --output embedded_chunks.json
 chunkflow ingest --input embedded_chunks.json
 ```
 
-## Use via the MCP server (optional, Docker)
+Everything ingested here lands in the same collection the MCP server reads, so
+it is immediately retrievable by agents — see
+[Agentic RAG: MCP server alongside Qdrant](#agentic-rag-mcp-server-alongside-qdrant-docker).
 
-The MCP server runs in containers on top of Qdrant. One Compose command brings
+## Agentic RAG: MCP server alongside Qdrant (Docker)
+
+The MCP server turns the shared Qdrant collection into an agentic RAG backend.
+Compose starts a second container, `ragmcp`, alongside the Qdrant container in
+the same stack — both services share the same database the CLI pipeline
+ingested into. The server exposes MCP tools — currently `qdrant_find` (hybrid
+dense + BM25 retrieval) and `qdrant_store` (store text as a parent/child pair) —
+so an MCP client / AI agent can retrieve and store documents at runtime; see
+[`docs/api.md`](docs/api.md) for the full tool list. One Compose command brings
 up **both** services:
 
 ```bash
@@ -120,7 +140,7 @@ variables or an optional `.env` file (see [Install & start the database](#instal
 > Inside the compose stack, `EMBEDDING_BASE_URL` defaults to
 > `http://host.docker.internal:11434` (to reach your host's Ollama from a
 > container) and `QDRANT_URL` to `http://qdrant:6333` (Docker service-name
-> resolution) — see [Use via the MCP server](#use-via-the-mcp-server-optional-docker).
+> resolution) — see [Agentic RAG: MCP server alongside Qdrant](#agentic-rag-mcp-server-alongside-qdrant-docker).
 
 ## Tests
 

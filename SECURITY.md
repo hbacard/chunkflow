@@ -10,7 +10,7 @@ vulnerabilities and what you can expect.
 Please report vulnerabilities privately by email to the maintainer:
 
 - **Maintainer:** Hugo Bacard
-- **Email:** `hbacard@pm.me`
+- **Email:** `hugo.bacard@ijclab.in2p3.fr`
 - **GPG / PGP key:** _optional — request one by email before sending sensitive details_
 
 Please include as much of the following as possible:
