@@ -40,8 +40,7 @@ Release / archive checklist:
    (the repository must be linked in your Zenodo account → GitHub settings).
 4. From the Zenodo record, copy the **new release DOI** and refresh:
    - the DOI badge in [`README.md`](README.md), and
-   - the `doi:` field in [`CITATION.cff`](CITATION.cff)
-   (currently placeholders — `10.5281/zenodo.XXXXXXX`).
+   - the `doi:` field in [`CITATION.cff`](CITATION.cff).
 
 ## Environmental impact
 
