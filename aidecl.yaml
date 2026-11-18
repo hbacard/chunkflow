@@ -1,0 +1,17 @@
+schema_version: "1.0.0"
+project:
+  name: chunkflow
+  content_type: software
+ai_usage:
+  used: true
+  summary: >-
+    AI was used via the OpenCode coding agent to plan and implement the
+    repository: the chunk/embed/ingest CLI, the Qdrant ingester, the MCP
+    server, tests, and documentation.
+  level: significant
+  tools:
+    - name: OpenCode
+      type: agent
+declaration:
+  date: "2026-11-18"
+  declared_by: Hugo Bacard
