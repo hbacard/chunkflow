@@ -19,7 +19,7 @@ COLLECTION = os.environ.get("COLLECTION_NAME", "docs_rag")
 qdrant = AsyncQdrantClient(url=QDRANT_URL)
 embedder = make_client()
 
-mcp = MCPServer("qdrant")
+mcp = MCPServer("remote_qdrant")
 
 
 @mcp.tool()
