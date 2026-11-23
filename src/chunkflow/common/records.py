@@ -1,12 +1,15 @@
 """Shared data model and record builders for the chunk pipeline."""
 
 import hashlib
+import uuid
 from dataclasses import dataclass
 
 
 def _stable_id(*parts: str) -> str:
     # deterministic id so re-ingesting the same doc upserts instead of duplicating
-    return hashlib.sha1("|".join(parts).encode("utf-8")).hexdigest()
+    # valid Qdrant point id: Qdrant rejects raw hex, it needs an int or a UUID
+    digest = hashlib.sha1("|".join(parts).encode("utf-8")).hexdigest()
+    return str(uuid.UUID(hex=digest[:32]))
 
 
 @dataclass
