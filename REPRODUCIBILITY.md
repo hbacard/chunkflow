@@ -30,7 +30,7 @@ docker compose up -d qdrant
 Copy and edit the environment template:
 
 ```bash
-cp env.example .env
+cp .env.example .env
 ```
 
 ## 2. Run the tests

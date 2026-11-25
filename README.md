@@ -43,7 +43,7 @@ docker compose up -d qdrant  # Qdrant on localhost:6333
 ```
 
 No `.env` is required — Compose falls back to the defaults in
-[Environment variables](#environment-variables). Copy `env.example` to `.env`
+[Environment variables](#environment-variables). Copy `.env.example` to `.env`
 only to override them.
 
 ## Ingest documents via the CLI (3 stages)
@@ -95,17 +95,22 @@ The MCP server speaks **streamable HTTP** — point your MCP client at
 Defaults are baked in; use a `.env` file only to override them:
 
 ```bash
-cp env.example .env   # optional, then edit as needed
+cp .env.example .env   # optional, then edit as needed
 ```
 
 Within the compose stack:
 
 - `QDRANT_URL` is set automatically to `http://qdrant:6333` (Docker service-name
   resolution), so the MCP server reaches the Qdrant container.
-- `EMBEDDING_BASE_URL` must reach your host's Ollama. Inside a container
-  `localhost` points to the container itself, so use
-  `http://host.docker.internal:11434` — the compose file maps
-  `host.docker.internal` to the host.
+- `EMBEDDING_BASE_URL` reaches your host's Ollama by default: the host CLI
+  defaults to `http://localhost:11434`, while Compose defaults the container to
+  `http://host.docker.internal:11434` (mapped to the host via `extra_hosts`),
+  because inside a container `localhost` is the container itself.
+- If you set `EMBEDDING_BASE_URL` in `.env` (or the shell) to any **other** URL —
+  a remote embeddings API, your LAN IP — Compose passes it to the container
+  unchanged, so the CLI and the MCP server share the same endpoint. Just never
+  put `localhost` in `.env`: the container would inherit it and lose Ollama.
+  See [`.env.example`](.env.example) for the full rule.
 
 ### Smoke test
 
@@ -129,7 +134,7 @@ variables or an optional `.env` file (see [Install & start the database](#instal
 
 | Variable | Default | Used by |
 |---|---|---|
-| `EMBEDDING_BASE_URL` | `http://localhost:11434` | embed, MCP server |
+| `EMBEDDING_BASE_URL` | host: `http://localhost:11434` · container: `http://host.docker.internal:11434` | embed, MCP server |
 | `EMBEDDING_MODEL` | `embeddinggemma-2:440m` | embed |
 | `EMBEDDING_DIM` | `768` | ingest |
 | `QDRANT_URL` | `http://localhost:6333` | ingest, MCP server |
@@ -139,6 +144,8 @@ variables or an optional `.env` file (see [Install & start the database](#instal
 > `http://host.docker.internal:11434` (to reach your host's Ollama from a
 > container) and `QDRANT_URL` to `http://qdrant:6333` (Docker service-name
 > resolution) — see [Agentic RAG: MCP server alongside Qdrant](#agentic-rag-mcp-server-alongside-qdrant-docker).
+> Any value set in `.env`/shell overrides both sides uniformly — see
+> [`.env.example`](.env.example).
 
 ## Tests
 

@@ -33,7 +33,7 @@ services:
       - "8001:8001"
     environment:
       QDRANT_URL: http://qdrant:6333
-      # Defaults match env.example; a .env file (if present) overrides them,
+      # Defaults match .env.example; a .env file (if present) overrides them,
       # so `docker compose up -d qdrant` works with zero setup.
       EMBEDDING_BASE_URL: ${EMBEDDING_BASE_URL:-http://host.docker.internal:11434}
       EMBEDDING_MODEL: ${EMBEDDING_MODEL:-embeddinggemma-2:440m}
