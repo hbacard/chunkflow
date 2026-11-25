@@ -10,7 +10,9 @@ from qdrant_client import AsyncQdrantClient, models
 DEFAULT_COLLECTION = "chunkflow"
 DEFAULT_DIM = 768
 SPARSE_MODEL = "Qdrant/bm25"
-MAX_UPSERT_BYTES = 8 * 1024 * 1024  # Qdrant caps request payloads at 32 MiB; stay well below
+MAX_UPSERT_BYTES = (
+    8 * 1024 * 1024
+)  # Qdrant caps request payloads at 32 MiB; stay well below
 
 _embedder: SparseTextEmbedding | None = None
 
