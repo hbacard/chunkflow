@@ -15,16 +15,20 @@ def make_client() -> httpx.Client:
     """Build an HTTP client for the embedding endpoint.
 
     The base URL comes from the ``EMBEDDING_BASE_URL`` env var, defaulting to
-    ``http://localhost:11434`` with a 60s timeout.
+    ``http://localhost:11434`` with a 60s timeout. When ``EMBEDDING_API_KEY``
+    is set it is sent as a Bearer token (OpenAI-compatible auth); Ollama
+    ignores it, so any value works.
 
     Returns
     -------
     httpx.Client
         Configured client for embedding requests.
     """
+    api_key = os.environ.get("EMBEDDING_API_KEY")
     return httpx.Client(
         base_url=os.environ.get("EMBEDDING_BASE_URL", DEFAULT_BASE_URL),
         timeout=httpx.Timeout(60.0),
+        headers={"Authorization": f"Bearer {api_key}"} if api_key else None,
     )
 
 

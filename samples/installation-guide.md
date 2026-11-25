@@ -21,6 +21,7 @@ The pipeline is configured through environment variables:
 | Variable | Default | Used by |
 |---|---|---|
 | `EMBEDDING_BASE_URL` | `http://localhost:11434` | embed |
+| `EMBEDDING_API_KEY` | `ollama` | embed |
 | `EMBEDDING_MODEL` | `embeddinggemma-2:440m` | embed |
 | `EMBEDDING_DIM` | `768` | ingest |
 
