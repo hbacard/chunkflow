@@ -135,6 +135,7 @@ variables or an optional `.env` file (see [Install & start the database](#instal
 | Variable | Default | Used by |
 |---|---|---|
 | `EMBEDDING_BASE_URL` | host: `http://localhost:11434` · container: `http://host.docker.internal:11434` | embed, MCP server |
+| `EMBEDDING_API_KEY` | `ollama` | embed |
 | `EMBEDDING_MODEL` | `embeddinggemma-2:440m` | embed |
 | `EMBEDDING_DIM` | `768` | ingest |
 | `QDRANT_URL` | `http://localhost:6333` | ingest, MCP server |

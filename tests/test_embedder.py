@@ -2,7 +2,13 @@ import json
 
 import httpx
 
-from chunkflow.embedder.embed import BATCH_SIZE, _embed_batch, embed_records, run
+from chunkflow.embedder.embed import (
+    BATCH_SIZE,
+    _embed_batch,
+    embed_records,
+    make_client,
+    run,
+)
 
 
 def _mock_client(requests_log=None):
@@ -55,3 +61,14 @@ def test_run(monkeypatch, tmp_path):
     data = json.loads(out.read_text())
     assert data[0] == {"id": "p", "chunk_type": "parent", "text": "x"}
     assert data[1]["dense_vector"] == [0.5] * 8
+
+
+def test_make_client_sends_bearer_key(monkeypatch):
+    monkeypatch.setenv("EMBEDDING_API_KEY", "s3cret")
+    client = make_client()
+    assert client.headers.get("Authorization") == "Bearer s3cret"
+
+
+def test_make_client_no_key_no_auth_header(monkeypatch):
+    monkeypatch.delenv("EMBEDDING_API_KEY", raising=False)
+    assert make_client().headers.get("Authorization") is None
