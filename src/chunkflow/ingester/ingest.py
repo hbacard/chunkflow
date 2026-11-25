@@ -10,6 +10,7 @@ from qdrant_client import AsyncQdrantClient, models
 DEFAULT_COLLECTION = "chunkflow"
 DEFAULT_DIM = 768
 SPARSE_MODEL = "Qdrant/bm25"
+MAX_UPSERT_BYTES = 8 * 1024 * 1024  # Qdrant caps request payloads at 32 MiB; stay well below
 
 _embedder: SparseTextEmbedding | None = None
 
@@ -117,6 +118,9 @@ async def ingest(
 ) -> None:
     """Ensure the collection exists and upsert all records as points.
 
+    Points are upserted in batches so a request stays under Qdrant's
+    32 MiB payload limit even for large corpora.
+
     Parameters
     ----------
     records : list[dict]
@@ -129,7 +133,18 @@ async def ingest(
         Dense vector dimension.
     """
     await _ensure_collection(client, collection, dim)
-    await client.upsert(collection, points=_points(records, dim))
+    points = _points(records, dim)
+    batch: list[models.PointStruct] = []
+    batch_bytes = 0
+    for p in points:
+        p_bytes = len(json.dumps(p.model_dump(), default=str))
+        if batch and batch_bytes + p_bytes > MAX_UPSERT_BYTES:
+            await client.upsert(collection, points=batch)
+            batch, batch_bytes = [], 0
+        batch.append(p)
+        batch_bytes += p_bytes
+    if batch:
+        await client.upsert(collection, points=batch)
 
 
 async def run(
